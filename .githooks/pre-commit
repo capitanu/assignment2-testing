@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mvn formatter:format
+echo "Applied linters on the project"
