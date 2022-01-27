@@ -5,7 +5,6 @@ package com.group23.decide;
  */
 public class Point {
 
-
     private int x;
     private int y;
 
