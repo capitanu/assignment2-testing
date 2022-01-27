@@ -5,8 +5,9 @@ package com.group23.decide;
  */
 public class Point {
 
-    public int x;
-    public int y;
+
+    private int x;
+    private int y;
 
     /**
      * The constructor for a Point takes two arguments, x and y and returns an Object of type Point.
@@ -15,4 +16,33 @@ public class Point {
         this.x = x;
         this.y = y;
     }
+
+    /**
+     * Getter for x
+     */
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * Getter for y
+     */
+    public int getY() {
+        return y;
+    }
+
+    /**
+     * Setter for x
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     * Setter for y
+     */
+    public void setY(int y) {
+        this.y = y;
+    }
+
 }

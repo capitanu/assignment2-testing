@@ -1,5 +1,6 @@
 package com.group23.decide;
 
+import javax.naming.ldap.PagedResultsControl;
 import java.util.ArrayList;
 
 public class Decide {
@@ -10,22 +11,16 @@ public class Decide {
     public static final int NOTUSED = 3;
 
     public static void checkData(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS, int[][] LCM, boolean[] PUV) {
-        if (POINTS.length != NUMPOINTS) {
-            System.err.println("The number of points in the list is not equal to the declared NUMPOINTS.\n");
-            System.exit(1);
-        }
+        // number of points in the list needs to be equal to the declared NUMPOINTS.
+        Preconditions.checkArgument(POINTS.length == NUMPOINTS);
 
-        if (NUMPOINTS > 100) {
-            System.err.println("The maximum amount of points is 100");
-            System.exit(1);
-        }
+        // The maximum amount of points should be between 2 and 100.
+        Preconditions.checkInInterval(NUMPOINTS, 2, 100);
 
+        // The LCM matrix needs to be symmetric
         for (int i = 0; i < LCM.length; i++) {
             for (int j = 0; j < LCM[0].length; j++) {
-                if (LCM[i][j] != LCM[j][i]) {
-                    System.err.println("The LCM matrix is not symmetric");
-                    System.exit(1);
-                }
+                Preconditions.checkArgument(LCM[i][j] == LCM[j][i]);
             }
         }
     }
