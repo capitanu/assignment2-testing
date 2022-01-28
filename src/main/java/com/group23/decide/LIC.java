@@ -98,15 +98,25 @@ public class LIC {
     }
 
     /**
-     * Function that computes condition 5 of the LIC.
+     * Checks if there exists at least one set of 2 consecutive data points such that p2.x - p1.x < 0.
      *
-     * @param ...
+     * @param NUMPOINTS
+     *            - the number of data points
+     * @param POINTS
+     *            - data points
      *
      * @return true if the condition is met, false otherwise
      */
-    public static boolean condition5() {
-        // TODO: Write condition 5 of the LIC
-        return true;
+    public static boolean condition5(int NUMPOINTS, Point[] POINTS) {
+        for (int i = 0; i < NUMPOINTS - 1; i++) {
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i + 1];
+
+            if (p2.getX() - p1.getX() < 0)
+                return true;
+
+        }
+        return false;
     }
 
     /**
