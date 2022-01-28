@@ -38,4 +38,17 @@ public class PointTest {
         assertEquals(Point.calculateDistance(point1, point2), expectedResult);
     }
 
+    /**
+     * Testing the behaviour of calculateAngle()
+     */
+    @Test
+    public void checkCalcAngle() {
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(0, 0); // vertex of the angle
+        Point p3 = new Point(0, 1);
+
+        assertEquals(Point.calculateAngle(p1, p2, p3), Math.PI/2, 1E-6);
+
+    }
+
 }
