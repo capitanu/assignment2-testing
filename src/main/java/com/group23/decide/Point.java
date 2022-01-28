@@ -65,4 +65,26 @@ public class Point {
         return distance;
     }
 
+    /**
+     * This method takes 3 points in the cartesian system and calculates the angle P1-P2-P3
+     *
+     * @param point1
+     *            - The first point
+     * @param point2
+     *            - The second point
+     * @param point3
+     *            - The third point
+     *
+     * @return angle - the P1-P2-P3 angle
+     */
+    public static double calculateAngle(Point point1, Point point2, Point point3) {
+        double a = Math.pow(point2.x-point1.x,2) + Math.pow(point2.y-point1.y,2);
+        double b = Math.pow(point2.x-point3.x,2) + Math.pow(point2.y-point3.y,2);
+        double c = Math.pow(point3.x-point1.x,2) + Math.pow(point3.y-point1.y,2);
+
+        return Math.acos( (a+b-c) / Math.sqrt(4*a*b) );
+    }
+
+
+
 }
