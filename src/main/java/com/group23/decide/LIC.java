@@ -30,15 +30,31 @@ public class LIC {
     }
 
     /**
-     * Function that computes condition 2 of the LIC.
+     * Checks if there exists 3 consecutive that form an angle smaller than PI - EPSILON
+     * or greater than PI + EPSILON. The vertex of the angle must also be distinct from the two other points
      *
-     * @param ...
+     * @param NUMPOINTS
+     *              - the number of data points
+     * @param POINTS
+     *              - data points
+     * @param EPSILON
+     *              - epsilon used in the condition
      *
      * @return true if the condition is met, false otherwise
      */
-    public static boolean condition2() {
-        // TODO: Write condition 2 of the LIC
-        return true;
+    public static boolean condition2(int NUMPOINTS, Point[] POINTS, double EPSILON) {
+        for(int i = 0; i < NUMPOINTS-2; i++) {
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i+1]; // vertex of the angle
+            Point p3 = POINTS[i+2];
+            if(Point.calculateDistance(p1, p2) != 0 && Point.calculateDistance(p2, p3) != 0) {
+                double angle = Point.calculateAngle(p1, p2, p3);
+                System.out.println(angle);
+                if (angle < Math.PI - EPSILON || angle > Math.PI + EPSILON)
+                    return true;
+            }
+        }
+        return false;
     }
 
     /**
