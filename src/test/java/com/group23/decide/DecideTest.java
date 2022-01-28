@@ -1,10 +1,8 @@
 package com.group23.decide;
 
 import static org.junit.Assert.assertTrue;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for simple App.
