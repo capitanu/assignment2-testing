@@ -47,7 +47,7 @@ public class PointTest {
         Point p2 = new Point(0, 0); // vertex of the angle
         Point p3 = new Point(0, 1);
 
-        assertEquals(Point.calculateAngle(p1, p2, p3), Math.PI/2, 1E-6);
+        assertEquals(Point.calculateAngle(p1, p2, p3), Math.PI / 2, 1E-6);
 
     }
 
