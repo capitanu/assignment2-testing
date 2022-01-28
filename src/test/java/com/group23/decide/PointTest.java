@@ -51,4 +51,16 @@ public class PointTest {
 
     }
 
+    /**
+     * Testing the behaviour of calculateDistanceFromPointToLine()
+     */
+    @Test
+    public void checkCalculateDistanceFromPointToLine() {
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(0, 0);
+        Point p3 = new Point(1, 1);
+
+        assertEquals(Point.calculateDistanceFromPointToLine(p1, p2, p3), Math.sqrt(2) / 2, 1E-6);
+    }
+
 }

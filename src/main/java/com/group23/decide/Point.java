@@ -85,4 +85,24 @@ public class Point {
         return Math.acos((a + b - c) / Math.sqrt(4 * a * b));
     }
 
+    /**
+     * This method takes 3 points in the cartesian system and calculates distance from point 1 to the line defined by
+     * point 2 and point 3
+     *
+     * @param point1
+     *            - The first point
+     * @param point2
+     *            - The first line point
+     * @param point3
+     *            - The second line point
+     *
+     * @return distance - from point1 to the line defined by point2 and point3
+     */
+    public static double calculateDistanceFromPointToLine(Point point1, Point point2, Point point3) {
+        double numerator = Math
+                .abs((point3.x - point2.x) * (point2.y - point1.y) - (point2.x - point1.x) * (point3.y - point2.y));
+        double denominator = Math.sqrt(Math.pow(point3.x - point2.x, 2) + Math.pow(point3.y - point2.y, 2));
+        return numerator / denominator;
+    }
+
 }
