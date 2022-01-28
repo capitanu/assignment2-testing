@@ -30,26 +30,25 @@ public class LIC {
     }
 
     /**
-     * Checks if there exists 3 consecutive that form an angle smaller than PI - EPSILON
-     * or greater than PI + EPSILON. The vertex of the angle must also be distinct from the two other points
+     * Checks if there exists 3 consecutive that form an angle smaller than PI - EPSILON or greater than PI + EPSILON.
+     * The vertex of the angle must also be distinct from the two other points
      *
      * @param NUMPOINTS
-     *              - the number of data points
+     *            - the number of data points
      * @param POINTS
-     *              - data points
+     *            - data points
      * @param EPSILON
-     *              - epsilon used in the condition
+     *            - epsilon used in the condition
      *
      * @return true if the condition is met, false otherwise
      */
     public static boolean condition2(int NUMPOINTS, Point[] POINTS, double EPSILON) {
-        for(int i = 0; i < NUMPOINTS-2; i++) {
+        for (int i = 0; i < NUMPOINTS - 2; i++) {
             Point p1 = POINTS[i];
-            Point p2 = POINTS[i+1]; // vertex of the angle
-            Point p3 = POINTS[i+2];
-            if(Point.calculateDistance(p1, p2) != 0 && Point.calculateDistance(p2, p3) != 0) {
+            Point p2 = POINTS[i + 1]; // vertex of the angle
+            Point p3 = POINTS[i + 2];
+            if (Point.calculateDistance(p1, p2) != 0 && Point.calculateDistance(p2, p3) != 0) {
                 double angle = Point.calculateAngle(p1, p2, p3);
-                System.out.println(angle);
                 if (angle < Math.PI - EPSILON || angle > Math.PI + EPSILON)
                     return true;
             }
@@ -58,15 +57,32 @@ public class LIC {
     }
 
     /**
-     * Function that computes condition 3 of the LIC.
+     * Checks if there exists at least one set of 3 consecutive points that are the vertices of a triangle of area
+     * greater than AREA1
      *
-     * @param ...
+     * @param NUMPOINTS
+     *            - the number of data points
+     * @param POINTS
+     *            - data points
+     * @param AREA1
+     *            - threshold value
      *
      * @return true if the condition is met, false otherwise
      */
-    public static boolean condition3() {
-        // TODO: Write condition 3 of the LIC
-        return true;
+    public static boolean condition3(int NUMPOINTS, Point[] POINTS, double AREA1) {
+        for (int i = 0; i < NUMPOINTS - 2; i++) {
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i + 1];
+            Point p3 = POINTS[i + 2];
+
+            double area = Math.abs((p1.getX() * (p2.getY() - p3.getY()) + p2.getX() * (p3.getY() - p1.getY())
+                    + p3.getX() * (p1.getY() - p2.getY())) / 2.0);
+
+            if (area > AREA1)
+                return true;
+
+        }
+        return false;
     }
 
     /**

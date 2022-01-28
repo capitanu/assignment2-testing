@@ -78,13 +78,11 @@ public class Point {
      * @return angle - the P1-P2-P3 angle
      */
     public static double calculateAngle(Point point1, Point point2, Point point3) {
-        double a = Math.pow(point2.x-point1.x,2) + Math.pow(point2.y-point1.y,2);
-        double b = Math.pow(point2.x-point3.x,2) + Math.pow(point2.y-point3.y,2);
-        double c = Math.pow(point3.x-point1.x,2) + Math.pow(point3.y-point1.y,2);
+        double a = Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2);
+        double b = Math.pow(point2.x - point3.x, 2) + Math.pow(point2.y - point3.y, 2);
+        double c = Math.pow(point3.x - point1.x, 2) + Math.pow(point3.y - point1.y, 2);
 
-        return Math.acos( (a+b-c) / Math.sqrt(4*a*b) );
+        return Math.acos((a + b - c) / Math.sqrt(4 * a * b));
     }
-
-
 
 }
