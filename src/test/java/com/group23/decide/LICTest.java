@@ -43,7 +43,7 @@ public class LICTest {
     }
 
     /**
-     * Testing that CMV2 works on a trivial case
+     * Testing that CMV3 works on a trivial case
      */
     @Test
     public void cmv3TrivialWorks() {
@@ -53,7 +53,7 @@ public class LICTest {
     }
 
     /**
-     * Testing that CMV2 accepts inputs expected to be valid
+     * Testing that CMV3 accepts inputs expected to be valid
      */
     @Test
     public void cmv3AcceptWorks() {
@@ -66,7 +66,7 @@ public class LICTest {
     }
 
     /**
-     * Testing that CMV2 rejects inputs expected to be invalid
+     * Testing that CMV3 rejects inputs expected to be invalid
      */
     @Test
     public void cmv3RejectWorks() {
@@ -75,6 +75,37 @@ public class LICTest {
         Point p2 = new Point(3, 3);
         Point p3 = new Point(4, 4);
         assertFalse(LIC.condition3(3, new Point[] { p1, p2, p3 }, 20));
+    }
+
+    /**
+     * Testing that CMV5 works on a trivial case
+     */
+    @Test
+    public void cmv5TrivialWorks() {
+        // should reject trivial case with identical points and x difference 0
+        Point p0 = new Point(0, 0);
+        assertFalse(LIC.condition5(2, new Point[] { p0, p0 }));
+    }
+
+    /**
+     * Testing that CMV5 accepts inputs expected to be valid
+     */
+    @Test
+    public void cmv5AcceptWorks() {
+        Point p1 = new Point(2, 0);
+        Point p2 = new Point(1, 5);
+
+        assertTrue(LIC.condition5(2, new Point[] { p1, p2 }));
+    }
+
+    /**
+     * Testing that CMV5 rejects inputs expected to be invalid
+     */
+    @Test
+    public void cmv5RejectWorks() {
+        Point p1 = new Point(2, 2);
+        Point p2 = new Point(3, 3);
+        assertFalse(LIC.condition5(2, new Point[] { p1, p2 }));
     }
 
 }
