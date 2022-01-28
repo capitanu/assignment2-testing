@@ -88,13 +88,67 @@ public class LIC {
     /**
      * Function that computes condition 4 of the LIC.
      *
-     * @param ...
+     * @param NUMPOINTS
+     *            the number of data points
+     * @param POINTS
+     *            the data points
+     * @param Q_PTS
+     *            the number of expected consecutive points
+     * @param QUADS
+     *            the number of quadrants
      *
      * @return true if the condition is met, false otherwise
      */
-    public static boolean condition4() {
-        // TODO: Write condition 4 of the LIC
-        return true;
+    public static boolean condition4(int NUMPOINTS, Point[] POINTS, int Q_PTS, int QUADS) {
+
+        for (int i = 0; i <= NUMPOINTS - Q_PTS; i++) {
+            boolean[] q_filled = { false, false, false, false };
+            for (int j = i; j - i < Q_PTS; j++) {
+                if (POINTS[j].getX() == 0) {
+                    if (POINTS[j].getY() >= 0) {
+                        q_filled[0] = true;
+                        continue;
+                    } else {
+                        q_filled[2] = true;
+                        continue;
+                    }
+                }
+                if (POINTS[j].getY() == 0) {
+                    if (POINTS[j].getX() >= 0) {
+                        q_filled[0] = true;
+                        continue;
+                    } else {
+                        q_filled[1] = true;
+                        continue;
+                    }
+                }
+                if (POINTS[j].getX() > 0 && POINTS[j].getY() > 0) {
+                    q_filled[0] = true;
+                    continue;
+                }
+                if (POINTS[j].getX() < 0 && POINTS[j].getY() > 0) {
+                    q_filled[1] = true;
+                    continue;
+                }
+                if (POINTS[j].getX() < 0 && POINTS[j].getY() < 0) {
+                    q_filled[2] = true;
+                    continue;
+                }
+                if (POINTS[j].getX() > 0 && POINTS[j].getY() < 0) {
+                    q_filled[3] = true;
+                    continue;
+                }
+            }
+            int cnt = 0;
+            for (int quads = 0; quads < 4; quads++) {
+                if (q_filled[quads])
+                    cnt++;
+            }
+
+            if (cnt > QUADS)
+                return true;
+        }
+        return false;
     }
 
     /**
