@@ -1,13 +1,16 @@
 package com.group23.decide;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import org.junit.jupiter.api.Test;
 
 public class PreconditionsTest {
+
     @Test
     public void checkArgumentSucceedsForTrue() {
-        Preconditions.checkArgument(true);
+        assertDoesNotThrow(() -> {
+            Preconditions.checkArgument(true);
+        });
     }
 
     @Test
@@ -17,7 +20,9 @@ public class PreconditionsTest {
 
     @Test
     public void checkInIntervalSucceedsForValuesInInterval() {
-        Preconditions.checkInInterval(50, 0, 100);
+        assertDoesNotThrow(() -> {
+            Preconditions.checkInInterval(50, 0, 100);
+        });
     }
 
     @Test
