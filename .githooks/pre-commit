@@ -1,4 +1,20 @@
 #!/bin/sh
 
+RED='\033[1;31m'
+NC='\033[0m'
+
+echo -e "Running maven formatter..."
 mvn formatter:format
-echo "Applied linters on the project"
+if [[ "$?" -ne 0 ]] ; then
+	echo -e "\n ${RED} Code could not be formatted. Please check the errors.";
+	exit 1
+fi
+
+
+echo -e "Running maven build..."
+mvn clean test
+if [[ "$?" -ne 0 ]] ; then
+	echo -e "\n ${RED} Build did not succeed, thus will not be committed.";
+	echo -e "\n ${RED} Please fix the issues before committing. \n ";
+	exit 1
+fi
