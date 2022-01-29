@@ -254,4 +254,45 @@ public class LICTest {
         assertTrue(LIC.condition7(5, new Point[] { p0, p1, p2, p3, p4 }, 3, Math.sqrt(2) - 0.001));
     }
 
+    /**
+     * Testing that CMV8 works on a trivial case
+     */
+    @Test
+    public void cmv8TrivialWorks() {
+        // Only one point is not enough for this to work => should return false
+        Point p0 = new Point(0, 0);
+        assertFalse(LIC.condition8(1, new Point[] { p0 }, 1, 1, 3));
+    }
+
+    /**
+     * Testing that CMV8 accepts inputs expected to be valid
+     */
+    @Test
+    public void cmv8AcceptWorks() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(1, 1);
+        Point p2 = new Point(2, 2);
+        Point p3 = new Point(3, 3);
+        Point p4 = new Point(4, 4);
+        // Distance from (0,0) -> (4,4) is sqrt(32)
+        // For dist above to be > RADIUS1*2 => Should have a radius of at least 3
+        assertTrue(LIC.condition8(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 3));
+    }
+
+    /**
+     * Testing that CMV8 accepts inputs expected to be valid
+     */
+    @Test
+    public void cmv8RejectWorks() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(1, 1);
+        Point p2 = new Point(2, 2);
+        Point p3 = new Point(3, 3);
+        Point p4 = new Point(4, 4);
+        // Distance from (0,0) -> (4,4) is sqrt(32)
+        // For dist above to be > RADIUS1*2 => Should have a radius of at least 3 to succeed
+        assertFalse(LIC.condition8(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 2));
+    }
+
 }
+
