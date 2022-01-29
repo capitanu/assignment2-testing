@@ -111,6 +111,47 @@ public class LICTest {
     }
 
     /**
+     * Testing that CMV4 works on a trivial case
+     */
+    @Test
+    public void cmv4TrivialWorks() {
+        // should reject trivial case with 3 quads and 2 point
+        Point p0 = new Point(0, 0);
+        assertFalse(LIC.condition4(2, new Point[] { p0, p0 }, 2, 3));
+    }
+
+    /**
+     * Testing that CMV4 rejects 6 points, 4 consecutive within 3 quadrants
+     */
+    @Test
+    public void cmv4FailOn4Consecutive3Quadrant() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(1, 1);
+        Point p2 = new Point(2, 1);
+        Point p3 = new Point(-1, 3);
+        Point p4 = new Point(-2, -2);
+        Point p5 = new Point(-2, -7);
+        // Should fail since it says MORE than QUADS, not more or equal
+        assertFalse(LIC.condition4(6, new Point[] { p0, p1, p2, p3, p4, p5 }, 4, 3));
+    }
+
+    /**
+     * Testing that CMV4 accepts 6 points, 4 consecutive within 3 quadrants
+     */
+    @Test
+    public void cmv4PassOn4Consecutive3Quadrant() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(-2, 1);
+        Point p2 = new Point(-2, -3);
+        Point p3 = new Point(1, -3);
+        Point p4 = new Point(-2, 5);
+        Point p5 = new Point(-10, 20);
+
+        // Should return true since the first 4 points are in 4 quadrants
+        assertTrue(LIC.condition4(6, new Point[] { p0, p1, p2, p3, p4, p5 }, 4, 3));
+    }
+
+    /**
      * Testing that CMV5 works on a trivial case
      */
     @Test
