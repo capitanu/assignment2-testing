@@ -141,17 +141,6 @@ public class LICTest {
         assertFalse(LIC.condition5(2, new Point[] { p1, p2 }));
     }
 
-    // /**
-    // * Testing that CMV0 works on a trivial case
-    // */
-    // @Test
-    // public void cmv8TrivialWorks() {
-    // Point p0 = new Point(0, 0);
-    // // Sending in the same point twice should return false since there aren't
-    // // two points with a distance of Length apart
-    // assertFalse(LIC.condition0(2, new Point[] { p0, p0 }, 1));
-    // }
-
     /**
      * Testing that CMV8 works on a trivial case
      */
