@@ -293,6 +293,5 @@ public class LICTest {
         // For dist above to be > RADIUS1*2 => Should have a radius of at least 3 to succeed
         assertFalse(LIC.condition8(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 2));
     }
-
 }
 
