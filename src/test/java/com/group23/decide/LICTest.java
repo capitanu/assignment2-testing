@@ -9,6 +9,39 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LICTest {
 
     /**
+     * Testing that CMV0 works on a trivial case
+     */
+    @Test
+    public void cmv0TrivialWorks() {
+        Point p0 = new Point(0, 0);
+        // Sending in the same point twice should return false since there aren't
+        // two points with a distance of Length apart
+        assertFalse(LIC.condition0(2, new Point[] { p0, p0 }, 1));
+    }
+
+    /**
+     * Testing that CMV0 accepts inputs expected to be valid
+     */
+    @Test
+    public void cmv0AcceptWorks() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(3, 3);
+        // Distance from (0,0) -> (3,3) is sqrt(18) > Length 1 => Should return true
+        assertTrue(LIC.condition0(2, new Point[] { p0, p1 }, 1));
+    }
+
+    /**
+     * Testing that CMV0 rejects inputs expected to be invalid
+     */
+    @Test
+    public void cmv0RejectWorks() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(3, 3);
+        // Distance from (0,0) -> (3,3) is sqrt(18) < Length 10 => Should return false
+        assertFalse(LIC.condition0(2, new Point[] { p0, p1 }, 10));
+    }
+
+    /**
      * Testing that CMV2 works on a trivial case
      */
     @Test

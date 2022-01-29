@@ -6,15 +6,30 @@ package com.group23.decide;
 public class LIC {
 
     /**
-     * Function that computes condition 0 of the LIC.
+     * Function that checks if there exists at least one pair of consecutive points that are at a distance greater than
+     * Length apart.
      *
-     * @param ...
+     * @param NUMPOINTS
+     *            - The number of data points
      *
-     * @return true if the condition is met, false otherwise
+     * @param POINTS
+     *            - The array of points
+     *
+     * @param Length
+     *            - The length to be evaluated against
+     *
+     * @return true if the there exists two consecutive points that are at a distance greater than the param length.
+     *         False otherwise.
      */
-    public static boolean condition0() {
-        // TODO: Write condition 0 of the LIC
-        return true;
+    public static boolean condition0(int NUMPOINTS, Point[] POINTS, double Length) {
+        for (int i = 0; i < NUMPOINTS - 1; i++) {
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i + 1];
+            if (Point.calculateDistance(p1, p2) > Length) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
