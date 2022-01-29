@@ -159,8 +159,8 @@ public class LIC {
     }
 
     /**
-     * Function that checks if there exists at least one set of three data points separated by
-     * A_PTS and B_PTS that cannot be contained within/on a circle of RADIUS1.
+     * Function that checks if there exists at least one set of three data points separated by A_PTS and B_PTS that
+     * cannot be contained within/on a circle of RADIUS1.
      *
      * @param NUMPOINTS
      *            - The number of data points
@@ -171,21 +171,22 @@ public class LIC {
      * @param A_PTS
      *            - The amount of points in between points p0 and p1.
      *
-     * @param B_PTS - The amount of points in between points p1 and p2.
+     * @param B_PTS
+     *            - The amount of points in between points p1 and p2.
      *
-     * @param RADIUS1 - The radius of the circle we want to evaluate whether the set {p0, p1, p2}
-     *                can fit in
+     * @param RADIUS1
+     *            - The radius of the circle we want to evaluate whether the set {p0, p1, p2} can fit in
      *
-     * @return true if there exists at least one set of three data points separated by A_PTS and B_PTS
-     *  that cannot be contained within/on a circle of RADIUS1.
+     * @return true if there exists at least one set of three data points separated by A_PTS and B_PTS that cannot be
+     *         contained within/on a circle of RADIUS1.
      */
     public static boolean condition8(int NUMPOINTS, Point[] POINTS, int A_PTS, int B_PTS, int RADIUS1) {
         // Base cases
-        if((NUMPOINTS < 5) || (A_PTS < 1) || (B_PTS < 1)){
+        if ((NUMPOINTS < 5) || (A_PTS < 1) || (B_PTS < 1)) {
             return false;
         }
 
-        for(int i = 0; i < NUMPOINTS - 2 - A_PTS - B_PTS; i++){
+        for (int i = 0; i < NUMPOINTS - 2 - A_PTS - B_PTS; i++) {
             Point p0 = POINTS[i];
 
             // Don't think this point is necessary, makes code easier to understand though :P
@@ -194,7 +195,7 @@ public class LIC {
             Point p2 = POINTS[i + 2 + A_PTS + B_PTS];
 
             // If points p0 and p2 are nearer each other than the diameter (RADIUS*2), then its true
-            if(Point.calculateDistance(p0, p2) < RADIUS1*2){
+            if (Point.calculateDistance(p0, p2) < RADIUS1 * 2) {
                 return true;
             }
         }
