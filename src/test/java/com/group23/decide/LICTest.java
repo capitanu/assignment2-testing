@@ -183,6 +183,81 @@ public class LICTest {
     }
 
     /**
+     * Testing that CMV8 works on a trivial case
+     */
+    @Test
+    public void cmv8TrivialWorks() {
+        // Only one point is not enough for this to work => should return false
+        Point p0 = new Point(0, 0);
+        assertFalse(LIC.condition8(1, new Point[] { p0 }, 1, 1, 3));
+    }
+
+    /**
+     * Testing that CMV8 accepts inputs expected to be valid
+     */
+    @Test
+    public void cmv8AcceptWorks() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(1, 1);
+        Point p2 = new Point(2, 2);
+        Point p3 = new Point(3, 3);
+        Point p4 = new Point(4, 4);
+        assertTrue(LIC.condition8(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 1));
+    }
+
+    /**
+     * Testing that CMV8 accepts inputs expected to be valid
+     */
+    @Test
+    public void cmv8RejectWorks() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(1, 1);
+        Point p2 = new Point(2, 2);
+        Point p3 = new Point(3, 3);
+        Point p4 = new Point(4, 4);
+        assertFalse(LIC.condition8(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 3));
+    }
+
+    /**
+     * Testing that CMV8 accepts inputs expected to be valid when one angle is above 90 degrees
+     */
+    @Test
+    public void cmv8AcceptWorksOver90Deg() {
+        Point p0 = new Point(-5, 2);
+        Point p1 = new Point(-3, 2);
+        Point p2 = new Point(0, 0);
+        Point p3 = new Point(3, 0);
+        Point p4 = new Point(5, 0);
+        assertTrue(LIC.condition8(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 5));
+    }
+
+    /**
+     * Testing that CMV8 accepts inputs expected to be valid when one angle is 90 degrees
+     */
+    @Test
+    public void cmv8AcceptWorksExactly90Deg() {
+        Point p0 = new Point(5, 0);
+        Point p1 = new Point(-3, 2);
+        Point p2 = new Point(0, 0);
+        Point p3 = new Point(3, 0);
+        Point p4 = new Point(0, 3);
+        assertFalse(LIC.condition8(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 3));
+    }
+
+    /**
+     * Testing that CMV8 accepts inputs expected to be valid when no angle is 90 degrees or greater
+     */
+    @Test
+    public void cmv8AcceptWorksLessThan90Deg() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(-3, 2);
+        Point p2 = new Point(2, 0);
+        Point p3 = new Point(3, 0);
+        Point p4 = new Point(1, 2);
+        assertFalse(LIC.condition8(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 1.26));
+    }
+
+    /*
      * Testing that CMV6 rejects if N_PTS < 3
      */
     @Test

@@ -247,15 +247,54 @@ public class LIC {
     }
 
     /**
-     * Function that computes condition 8 of the LIC.
+     * Function that checks if there exists at least one set of three data points separated by A_PTS and B_PTS that
+     * cannot be contained within/on a circle of RADIUS1.
      *
-     * @param ...
+     * @param NUMPOINTS
+     *            - The number of data points
      *
-     * @return true if the condition is met, false otherwise
+     * @param POINTS
+     *            - The array of points
+     *
+     * @param A_PTS
+     *            - The amount of points in between points p0 and p1.
+     *
+     * @param B_PTS
+     *            - The amount of points in between points p1 and p2.
+     *
+     * @param RADIUS1
+     *            - The radius of the circle we want to evaluate whether the set {p0, p1, p2} can fit in
+     *
+     * @return true if there exists at least one set of three data points separated by A_PTS and B_PTS that cannot be
+     *         contained within/on a circle of RADIUS1.
      */
-    public static boolean condition8() {
-        // TODO: Write condition 8 of the LIC
-        return true;
+    public static boolean condition8(int NUMPOINTS, Point[] POINTS, int A_PTS, int B_PTS, double RADIUS1) {
+        // Base cases
+        if ((NUMPOINTS < 5) || (A_PTS < 1) || (B_PTS < 1)) {
+            return false;
+        }
+
+        for (int i = 0; i < NUMPOINTS - 2 - A_PTS - B_PTS; i++) {
+            Point p0 = POINTS[i];
+
+            // point p1 comes directly after the A_PTS intervening
+            Point p1 = POINTS[i + 1 + A_PTS];
+
+            // point p2 comes directly after the B_PTS intervening
+            Point p2 = POINTS[i + 2 + A_PTS + B_PTS];
+
+            // This calculates the radius of the smallest circle that contains all 3 points.
+            double radiusSmallestCircle = Point.calcRadiusSmallestCircle(p0, p1, p2);
+
+            // if the radius of the smallest circle containing the 3 points is greater than
+            // the provided RADIUS1 => the 3 points cannot be contained by a circle with radius RADIUS1.
+            if (radiusSmallestCircle > RADIUS1) {
+                return true;
+            }
+        }
+
+        // Didn't find a set of 3 points that could not be contained within a circle with radius RADIUS1.
+        return false;
     }
 
     /**
@@ -367,7 +406,7 @@ public class LIC {
 			condition5(NUMPOINTS, POINTS),
 			condition6(NUMPOINTS, POINTS, PARAMETERS.N_PTS, PARAMETERS.DIST),
 			condition7(NUMPOINTS, POINTS, PARAMETERS.K_PTS, PARAMETERS.LENGTH1),
-			condition8(),
+			condition8(NUMPOINTS, POINTS, PARAMETERS.A_PTS, PARAMETERS.B_PTS, PARAMETERS.RADIUS1),
 			condition9(),
 			condition10(NUMPOINTS, POINTS, PARAMETERS.AREA1, PARAMETERS.E_PTS, PARAMETERS.F_PTS),
 			condition11(NUMPOINTS, POINTS, PARAMETERS.G_PTS),
