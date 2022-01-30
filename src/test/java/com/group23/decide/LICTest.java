@@ -183,7 +183,7 @@ public class LICTest {
     }
 
     /**
-     * Testing that CMV6 rejects if N_PTS < 3
+     * <<<<<<< HEAD Testing that CMV6 rejects if N_PTS < 3
      */
     @Test
     public void cmv6RejectForLessThan3Points() {
@@ -255,7 +255,7 @@ public class LICTest {
     }
 
     /**
-     * Testing that CMV8 works on a trivial case
+     * ======= >>>>>>> e4b776cefed080113dc1bc7ae4307031272533a9 Testing that CMV8 works on a trivial case
      */
     @Test
     public void cmv8TrivialWorks() {
@@ -290,3 +290,4 @@ public class LICTest {
         assertFalse(LIC.condition8(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 3));
     }
 }
+
