@@ -183,6 +183,42 @@ public class LICTest {
     }
 
     /**
+     * Testing that CMV6 rejects if N_PTS < 3
+     */
+    @Test
+    public void cmv6RejectForLessThan3Points() {
+        Point p1 = new Point(2, 2);
+        Point p2 = new Point(3, 3);
+        assertFalse(LIC.condition6(2, new Point[] { p1, p2 }, 3, 1.5));
+    }
+
+    /**
+     * Testing that CMV6 rejects for 5 points, 3 point interval and distance 3
+     */
+    @Test
+    public void cmv6RejectCase() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(0, 1);
+        Point p2 = new Point(1, 0);
+        Point p3 = new Point(1, 1);
+        Point p4 = new Point(1, 2);
+        assertFalse(LIC.condition6(5, new Point[] { p0, p1, p2, p3, p4 }, 3, 3));
+    }
+
+    /**
+     * Testing that CMV6 passes for 5 points, 3 point interval and distance 1
+     */
+    @Test
+    public void cmv6PassCase() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(0, 1);
+        Point p2 = new Point(1, 0);
+        Point p3 = new Point(1, 2);
+        Point p4 = new Point(1, 1);
+        assertTrue(LIC.condition6(5, new Point[] { p0, p1, p2, p3, p4 }, 3, 1));
+    }
+
+    /**
      * Testing that CMV7 rejects inputs expected to be invalid
      */
     @Test

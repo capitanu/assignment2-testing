@@ -22,6 +22,8 @@ public class Decide {
                 Preconditions.checkArgument(LCM[i][j] == LCM[j][i]);
             }
         }
+
+        Preconditions.checkArgument(PARAMETERS.DIST >= 0);
     }
 
     public static void decide(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS, int[][] LCM, boolean[] PUV) {
