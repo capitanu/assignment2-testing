@@ -290,4 +290,3 @@ public class LICTest {
         assertFalse(LIC.condition8(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 3));
     }
 }
-
