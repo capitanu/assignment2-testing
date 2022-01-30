@@ -86,15 +86,14 @@ public class Point {
     }
 
     /**
-     * This method takes 3 points in the cartesian system and
-	 * calculates the area made by the triangle (P1,P2,P3)
+     * This method takes 3 points in the cartesian system and calculates the area made by the triangle (P1,P2,P3)
      *
      * @param point1
      *            - The first point
      * @param point2
      *            - The second point
      * @param point3
-     *           - The third points
+     *            - The third points
      *
      * @return area - the triangle (P1,P2,P3)
      */
@@ -105,19 +104,19 @@ public class Point {
         double s = (a + b + c) / 2;
         double area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
         // Impossible triangle, return 0, possiblity of throwing an exception
-        if(Double.isNaN(area)) { 
+        if (Double.isNaN(area)) {
             return 0;
         }
         return area;
-	}
-	
-	/**
-	 * This method takes 3 points in the cartesian system and calculates
-	 * distance from point 1 to the line defined by point 2 and point 3
+    }
 
-	 * @param point1
+    /**
+     * This method takes 3 points in the cartesian system and calculates distance from point 1 to the line defined by
+     * point 2 and point 3
+     * 
+     * @param point1
      *            - The first line point
-	 * @param point2
+     * @param point2
      *            - The second line point
      * @param point3
      *            - The third line point

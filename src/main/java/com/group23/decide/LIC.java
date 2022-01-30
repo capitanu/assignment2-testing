@@ -15,17 +15,17 @@ public class LIC {
      * @param POINTS
      *            - The array of points
      *
-     * @param Length
+     * @param LENGTH1
      *            - The length to be evaluated against
      *
      * @return true if the there exists two consecutive points that are at a distance greater than the param length.
      *         False otherwise.
      */
-    public static boolean condition0(int NUMPOINTS, Point[] POINTS, double Length) {
+    public static boolean condition0(int NUMPOINTS, Point[] POINTS, double LENGTH1) {
         for (int i = 0; i < NUMPOINTS - 1; i++) {
             Point p1 = POINTS[i];
             Point p2 = POINTS[i + 1];
-            if (Point.calculateDistance(p1, p2) > Length) {
+            if (Point.calculateDistance(p1, p2) > LENGTH1) {
                 return true;
             }
         }
@@ -270,7 +270,7 @@ public class LIC {
         return true;
     }
 
-     /**
+    /**
      * Function that computes condition 10 of the LIC.
      *
      * @param NUMPOINTS
@@ -290,10 +290,10 @@ public class LIC {
     public static boolean condition10(int NUMPOINTS, Point[] POINTS, double AREA1, int E_PTS, int F_PTS) {
         if (NUMPOINTS < 5 || E_PTS < 1 || F_PTS < 1 || (E_PTS + F_PTS) > (NUMPOINTS - 3))
             return false;
-        for (int i = 0; i + E_PTS + F_PTS + 2 < NUMPOINTS; i++) {    
-            double area = Point.calculateArea(POINTS[i], POINTS[i+E_PTS + 1], POINTS[i+E_PTS+F_PTS + 2]);
+        for (int i = 0; i + E_PTS + F_PTS + 2 < NUMPOINTS; i++) {
+            double area = Point.calculateArea(POINTS[i], POINTS[i + E_PTS + 1], POINTS[i + E_PTS + F_PTS + 2]);
             if (area > AREA1)
-                return true;    
+                return true;
         }
         return false;
     }
@@ -302,19 +302,19 @@ public class LIC {
      * Function that computes condition 11 of the LIC.
      *
      * @param NUMPOINTS
-     *          the number of points
+     *            the number of points
      * @param POINTS
-     *        the data points
+     *            the data points
      * @param G_PTS
-     *       the consecutive distance
+     *            the consecutive distance
      *
      * @return true if the condition is met, false otherwise
      */
     public static boolean condition11(int NUMPOINTS, Point[] POINTS, int G_PTS) {
         if (NUMPOINTS < 3 || G_PTS < 1 || G_PTS > NUMPOINTS - 2)
             return false;
-        for(int i = 0; i + G_PTS < NUMPOINTS; i++) {
-            if(POINTS[i +G_PTS].getX() - POINTS[i].getX() < 0)
+        for (int i = 0; i + G_PTS < NUMPOINTS; i++) {
+            if (POINTS[i + G_PTS].getX() - POINTS[i].getX() < 0)
                 return true;
         }
         return false;
@@ -323,35 +323,13 @@ public class LIC {
     /**
      * Function that computes condition 12 of the LIC.
      *
-     * @param NUMPOINTS
-     *            the number of points
-     * @param POINTS
-     *            the data points
-     * @param K_PTS
-     *            the consecutive distance
-     * @param LENGTH1
-     *            the lower bound distance
-     * @param LENGTH2
-     *            the upper bound distance
+     * @param ...
      *
      * @return true if the condition is met, false otherwise
      */
-    public static boolean condition12(int NUMPOINTS, Point[] POINTS, int K_PTS, double LENGTH1, double LENGTH2) {
-        if (NUMPOINTS < 3 || LENGTH2 < 0)
-            return false;
-        boolean cond1 = false, cond2 = false;
-
-        for (int i = 0; i + K_PTS + 1 < NUMPOINTS; i++) {
-            double dist = Point.calculateDistance(POINTS[i], POINTS[i + K_PTS + 1]);
-            if (dist > LENGTH1)
-                cond1 = true;
-            if (dist < LENGTH2)
-                cond2 = true;
-            if (cond1 && cond2)
-                return true;
-        }
-
-        return false;
+    public static boolean condition12() {
+        // TODO: Write condition 12 of the LIC
+        return true;
     }
 
     /**
@@ -378,9 +356,25 @@ public class LIC {
         return true;
     }
 
-    public static boolean[] computeCMV() {
-        // TODO: Replace this with the function calls to all the conditions
-        boolean[] CMV = { false, true, true };
+    public static boolean[] computeCMV(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS, int[][] LCM,
+            boolean[] PUV) {
+        boolean[] CMV = {
+			condition0(NUMPOINTS, POINTS, PARAMETERS.LENGTH1),
+			condition1(),
+			condition2(NUMPOINTS, POINTS, PARAMETERS.EPSILON),
+			condition3(NUMPOINTS, POINTS, PARAMETERS.AREA1),
+			condition4(NUMPOINTS, POINTS, PARAMETERS.Q_PTS, PARAMETERS.QUADS),
+			condition5(NUMPOINTS, POINTS),
+			condition6(NUMPOINTS, POINTS, PARAMETERS.N_PTS, PARAMETERS.DIST),
+			condition7(NUMPOINTS, POINTS, PARAMETERS.K_PTS, PARAMETERS.LENGTH1),
+			condition8(),
+			condition9(),
+			condition10(NUMPOINTS, POINTS, PARAMETERS.AREA1, PARAMETERS.E_PTS, PARAMETERS.F_PTS),
+			condition11(NUMPOINTS, POINTS, PARAMETERS.G_PTS),
+			condition12(),
+			condition13(),
+			condition14(),
+		};
         return CMV;
     }
 }
