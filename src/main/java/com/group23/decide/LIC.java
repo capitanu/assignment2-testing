@@ -207,7 +207,7 @@ public class LIC {
             return false;
         }
         for (int i = 0; i <= NUMPOINTS - N_PTS; i++) {
-            if (POINTS[i].getX() == POINTS[N_PTS + i - 1].getX() && POINTS[i].getY() == POINTS[N_PTS + i - 1].getY()) {
+            if (POINTS[i].equals(POINTS[N_PTS + i - 1])) {
                 for (int j = i + 1; j - i + 1 < N_PTS; j++) {
                     if (Point.calculateDistance(POINTS[i], POINTS[j]) > DIST)
                         return true;

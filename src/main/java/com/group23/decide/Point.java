@@ -105,4 +105,19 @@ public class Point {
         return numerator / denominator;
     }
 
+    /**
+     * This method takes 1 point in the cartesian system and returns true if it is equal to the point that called the
+     * function, or false otherwise.
+     *
+     * @param point
+     *            - The point
+     *
+     * @return true if the points are equal, false otherwise
+     */
+    public boolean equals(Point point) {
+        if (this.x == point.getX() && this.y == point.getY())
+            return true;
+        return false;
+    }
+
 }
