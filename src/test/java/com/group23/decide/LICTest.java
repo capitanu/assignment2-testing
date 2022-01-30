@@ -218,4 +218,57 @@ public class LICTest {
         assertTrue(LIC.condition7(5, new Point[] { p0, p1, p2, p3, p4 }, 3, Math.sqrt(2) - 0.001));
     }
 
+    /**
+     * Testing that CMV12 rejects incorrect NUMPOINTS
+     */
+    @Test
+    public void cmv12RejectInvalidNumPoints() {
+        Point[] points = new Point[] { new Point(0, 0), new Point(0, 1), };
+
+        int K_PTS = 1;
+        double LENGTH1 = 0.5;
+        double LENGTH2 = 1.5;
+        assertFalse(LIC.condition12(points.length, points, K_PTS, LENGTH1, LENGTH2));
+    }
+
+    /**
+     * Testing that CMV12 rejects case where no points fullfill condition
+     */
+    @Test
+    public void cmv12RejectInvalid() {
+        Point[] points = new Point[] { new Point(0, 0), new Point(0, 1), new Point(1, 1), };
+
+        int K_PTS = 1;
+        double LENGTH1 = 0.5;
+        double LENGTH2 = 0.2;
+        assertFalse(LIC.condition12(points.length, points, K_PTS, LENGTH1, LENGTH2));
+    }
+
+    /**
+     * Testing that CMV12 accepts a trivial case
+     */
+    @Test
+    public void cmv12AcceptTrivial() {
+        Point[] points = new Point[] { new Point(0, 0), new Point(0, 1), new Point(-1, 1), };
+
+        int K_PTS = 1;
+        double LENGTH1 = 0.5;
+        double LENGTH2 = 1.5;
+        assertTrue(LIC.condition12(points.length, points, K_PTS, LENGTH1, LENGTH2));
+    }
+
+    /**
+     * Testing that CMV12 accepts a non-trivial case with many points
+     */
+    @Test
+    public void cmv12AcceptWorks() {
+        Point[] points = new Point[] { new Point(0, 0), new Point(0, 1), new Point(-1, 1), new Point(2, 5),
+                new Point(-1, 1), };
+
+        int K_PTS = 2;
+        double LENGTH1 = 0.5;
+        double LENGTH2 = 2.5;
+        assertTrue(LIC.condition12(points.length, points, K_PTS, LENGTH1, LENGTH2));
+    }
+
 }
