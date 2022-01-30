@@ -51,4 +51,17 @@ public class PointTest {
 
     }
 
+    /**
+     * Testing the behaviour of calculateArea()
+     */
+    @Test
+    public void checkCalcArea() {
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(0, 5); // vertex of the angle
+        Point p3 = new Point(2, 1);
+
+        assertEquals(Point.calculateArea(p1, p2, p3), 1, 5.0);
+
+    }
+
 }

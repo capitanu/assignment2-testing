@@ -331,4 +331,77 @@ public class LICTest {
         int G_PTS = 2;
         assertTrue(LIC.condition11(points.length, points, G_PTS));
     }
-}
+	
+	/**
+     * Testing that CMV10 rejects AREA1 input expected to be invalid
+     */
+    @Test
+    public void cmv10RejectInvalidArea() {
+        Point[] points = new Point[] {
+                new Point(0, 0),
+                new Point(0, 1),
+                new Point(0, 5),
+                new Point(-1, 1),
+                new Point(3, 3),
+         };
+        double AREA1 = 8.0;
+        int E_PTS = 1;
+        int F_PTS = 1;
+        assertFalse(LIC.condition10(points.length, points, AREA1, E_PTS, F_PTS));
+    }
+
+     /**
+     * Testing that CMV10 rejects NumPoints <5 expected to be invalid
+     */
+    @Test
+    public void cmv10RejectInvalidNumPoints() {
+        Point[] points = new Point[] {
+                new Point(0, 0),
+                new Point(0, 1),
+                new Point(0, 5),
+                new Point(-1, 1),
+         };
+        double AREA1 = 8.0;
+        int E_PTS = 1;
+        int F_PTS = 1;
+        assertFalse(LIC.condition10(points.length, points, AREA1, E_PTS, F_PTS));
+    }
+
+     /**
+     * Testing that CMV10 accepts a trivial case
+     */
+    @Test
+    public void cmv10TrivialWorks() {
+        Point[] points = new Point[] {
+                new Point(0, 0),
+                new Point(0, 1),
+                new Point(0, 5),
+                new Point(-1, 1),
+                new Point(3, 3),
+         };
+        double AREA1 = 7.0;
+        int E_PTS = 1;
+        int F_PTS = 1;
+        assertTrue(LIC.condition10(points.length, points, AREA1, E_PTS, F_PTS));
+    }
+
+     /**
+     * Testing that CMV10 accepts a non-trivial case with many points
+     */
+    @Test
+    public void cmv10AcceptWorks() {
+        Point[] points = new Point[] {
+                new Point(0, 0),
+                new Point(0, 1),
+                new Point(0, 2),
+                new Point(5, 1),
+                new Point(3, 3),
+                new Point(5, 5),
+                new Point(7, 9),
+         };
+        double AREA1 = 8.0;
+        int E_PTS = 1;
+        int F_PTS = 2;
+        assertTrue(LIC.condition10(points.length, points, AREA1, E_PTS, F_PTS));
+    }
+} 
