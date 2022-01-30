@@ -277,13 +277,18 @@ public class LIC {
         for (int i = 0; i < NUMPOINTS - 2 - A_PTS - B_PTS; i++) {
             Point p0 = POINTS[i];
 
-            // Don't think this point is necessary, makes code easier to understand though :P
+            // point p1 comes directly after the A_PTS intervening
             Point p1 = POINTS[i + 1 + A_PTS];
 
+            // point p2 comes directly after the B_PTS intervening
             Point p2 = POINTS[i + 2 + A_PTS + B_PTS];
 
-            // If points p0 and p2 are nearer each other than the diameter (RADIUS*2), then its true
-            if (Point.calculateDistance(p0, p2) < RADIUS1 * 2) {
+            // This calculates the radius of the smallest circle that contains all 3 points.
+            double radiusSmallestCircle = Point.calcRadiusSmallestCircle(p0, p1, p2);
+
+            // if the radius of the smallest circle containing the 3 points is greater than
+            // the provided RADIUS1 => the 3 points cannot be contained by a circle with radius RADIUS1.
+            if (radiusSmallestCircle > RADIUS1) {
                 return true;
             }
         }
