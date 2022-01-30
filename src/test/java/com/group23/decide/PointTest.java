@@ -64,7 +64,7 @@ public class PointTest {
 
     }
 
-	/**
+    /**
      * Testing the behaviour of calculateDistanceFromPointToLine()
      */
     @Test
