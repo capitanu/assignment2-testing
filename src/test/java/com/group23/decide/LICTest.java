@@ -271,4 +271,64 @@ public class LICTest {
         assertTrue(LIC.condition12(points.length, points, K_PTS, LENGTH1, LENGTH2));
     }
 
+	/**
+     * Testing that CMV11 rejects incorrect NUMPOINTS
+     */
+    @Test
+    public void cmv11RejectInvalidNumPoints() {
+        Point[] points = new Point[] {
+                new Point(0, 0),
+                new Point(0, 1),
+         };
+      
+        int G_PTS = 1;
+        assertFalse(LIC.condition11(points.length, points, G_PTS));
+    }
+
+    /**
+     * Testing that CMV11 rejects case where no points fullfill condition
+     */
+    @Test
+    public void cmv11RejectInvalid() {
+        Point[] points = new Point[] {
+                new Point(0, 0),
+                new Point(0, 1),
+                new Point(1, 1),
+         };
+      
+        int G_PTS = 1;
+        assertFalse(LIC.condition11(points.length, points, G_PTS));
+    }
+
+     /**
+     * Testing that CMV11 rejects case where no points fullfill condition
+     */
+    @Test
+    public void cmv11AcceptTrivial() {
+        Point[] points = new Point[] {
+                new Point(0, 0),
+                new Point(0, 1),
+                new Point(-1, 1),
+         };
+      
+        int G_PTS = 1;
+        assertTrue(LIC.condition11(points.length, points, G_PTS));
+    }
+
+      /**
+     * Testing that CMV11 rejects case where no points fullfill condition
+     */
+    @Test
+    public void cmv11AcceptWorks() {
+        Point[] points = new Point[] {
+                new Point(0, 0),
+                new Point(0, 1),
+                new Point(-1, 1),
+                new Point(2, 5),
+                new Point(-1, 1),
+         };
+      
+        int G_PTS = 2;
+        assertTrue(LIC.condition11(points.length, points, G_PTS));
+    }
 }
