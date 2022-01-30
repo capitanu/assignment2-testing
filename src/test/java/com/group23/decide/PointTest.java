@@ -64,4 +64,35 @@ public class PointTest {
 
     }
 
+	/**
+     * Testing the behaviour of calculateDistanceFromPointToLine()
+     */
+    @Test
+    public void checkCalculateDistanceFromPointToLine() {
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(0, 0);
+        Point p3 = new Point(1, 1);
+
+        assertEquals(Point.calculateDistanceFromPointToLine(p1, p2, p3), Math.sqrt(2) / 2, 1E-6);
+    }
+
+    /**
+     * Testing the behaviour of equals if points are not equal
+     */
+    @Test
+    public void checkPointNotEqual() {
+        Point pt1 = new Point(1, 0);
+        Point pt2 = new Point(0, 0);
+        assertFalse(pt1.equals(pt2));
+    }
+
+    /**
+     * Testing the behaviour of equals if points are equal
+     */
+    @Test
+    public void checkPointEqual() {
+        Point pt1 = new Point(1, 0);
+        Point pt2 = new Point(1, 0);
+        assertTrue(pt1.equals(pt2));
+    }
 }

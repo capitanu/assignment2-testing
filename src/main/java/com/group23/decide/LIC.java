@@ -191,13 +191,35 @@ public class LIC {
     /**
      * Function that computes condition 6 of the LIC.
      *
-     * @param ...
+     * @param NUMPOINTS
+     *            the number of data points
+     * @param POINTS
+     *            the data points
+     * @param N_PTS
+     *            the number of expected consecutive points
+     * @param DIST
+     *            the distance to be checked with
      *
      * @return true if the condition is met, false otherwise
      */
-    public static boolean condition6() {
-        // TODO: Write condition 6 of the LIC
-        return true;
+    public static boolean condition6(int NUMPOINTS, Point[] POINTS, int N_PTS, double DIST) {
+        if (NUMPOINTS < 3) {
+            return false;
+        }
+        for (int i = 0; i <= NUMPOINTS - N_PTS; i++) {
+            if (POINTS[i].equals(POINTS[N_PTS + i - 1])) {
+                for (int j = i + 1; j - i + 1 < N_PTS; j++) {
+                    if (Point.calculateDistance(POINTS[i], POINTS[j]) > DIST)
+                        return true;
+                }
+            } else {
+                for (int j = i + 1; j - i + 1 < N_PTS; j++) {
+                    if (Point.calculateDistanceFromPointToLine(POINTS[j], POINTS[i], POINTS[i + N_PTS - 1]) > DIST)
+                        return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
