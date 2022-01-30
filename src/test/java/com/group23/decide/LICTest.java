@@ -218,4 +218,40 @@ public class LICTest {
         assertTrue(LIC.condition6(5, new Point[] { p0, p1, p2, p3, p4 }, 3, 1));
     }
 
+    /**
+     * Testing that CMV7 rejects inputs expected to be invalid
+     */
+    @Test
+    public void cmv7RejectInvalid() {
+        Point p1 = new Point(2, 2);
+        Point p2 = new Point(3, 3);
+        assertFalse(LIC.condition7(2, new Point[] { p1, p2 }, 2, 1.5));
+    }
+
+    /**
+     * Testing that CMV7 rejects input not satisfied
+     */
+    @Test
+    public void cmv7RejectWorks() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(0, 1);
+        Point p2 = new Point(1, 0);
+        Point p3 = new Point(-1, 1);
+        Point p4 = new Point(1, 1);
+        assertFalse(LIC.condition7(5, new Point[] { p0, p1, p2, p3, p4 }, 3, Math.sqrt(2)));
+    }
+
+    /**
+     * Testing that CMV7 pass input not satisfied
+     */
+    @Test
+    public void cmv7PassWorks() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(0, 1);
+        Point p2 = new Point(1, 0);
+        Point p3 = new Point(-1, 1);
+        Point p4 = new Point(2, 1);
+        assertTrue(LIC.condition7(5, new Point[] { p0, p1, p2, p3, p4 }, 3, Math.sqrt(2) - 0.001));
+    }
+
 }
