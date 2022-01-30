@@ -1,4 +1,5 @@
 package com.group23.decide;
+
 /**
  * A helper class that is supposed to hold the radius and center of a circle.
  */
