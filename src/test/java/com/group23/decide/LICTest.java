@@ -42,6 +42,41 @@ public class LICTest {
     }
 
     /**
+     * Testing that CMV1 works on a trivial case
+    */
+    @Test
+    public void cmv1TrivialWorks(){
+        Point p0 = new Point(0, 0);
+        assertFalse(LIC.condition1(3, new Point[] { p0, p0, p0 }, 1));
+    }
+    
+    
+    /**
+     * Testing that CMV1 accepts input expected to be valid
+    */ 
+    @Test
+    public void cmv1AcceptWorks(){
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(0, 10);
+        Point p2 = new Point(10, 0);
+        assertTrue(LIC.condition1(3, new Point[] { p0, p1, p2 }, 1));
+    }
+    
+    
+    /**
+     * Testing that CMV1 rejects input expected to be invalid
+    */ 
+    @Test
+    public void cmv1RejectWorks(){
+        Point p0 = new Point(2, 2);
+        Point p1 = new Point(3, 2);
+        Point p2 = new Point(2, 3);
+        assertFalse(LIC.condition1(3, new Point[] { p0, p1, p2 }, 10));
+    }
+    
+
+
+    /**
      * Testing that CMV2 works on a trivial case
      */
     @Test
