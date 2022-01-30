@@ -274,9 +274,7 @@ public class LICTest {
         Point p2 = new Point(2, 2);
         Point p3 = new Point(3, 3);
         Point p4 = new Point(4, 4);
-        // Distance from (0,0) -> (4,4) is sqrt(32)
-        // For dist above to be > RADIUS1*2 => Should have a radius of at least 3
-        assertTrue(LIC.condition8(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 3));
+        assertTrue(LIC.condition8(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 1));
     }
 
     /**
@@ -289,9 +287,6 @@ public class LICTest {
         Point p2 = new Point(2, 2);
         Point p3 = new Point(3, 3);
         Point p4 = new Point(4, 4);
-        // Distance from (0,0) -> (4,4) is sqrt(32)
-        // For dist above to be > RADIUS1*2 => Should have a radius of at least 3 to succeed
-        assertFalse(LIC.condition8(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 2));
+        assertFalse(LIC.condition8(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 3));
     }
 }
-
