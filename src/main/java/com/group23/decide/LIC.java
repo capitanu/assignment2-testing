@@ -203,13 +203,25 @@ public class LIC {
     /**
      * Function that computes condition 7 of the LIC.
      *
-     * @param ...
+     * @param NUMPOINTS
+     *            the number of points
+     * @param POINTS
+     *            the data points
+     * @param K_PTS
+     *            the consecutive distance
+     * @param LENGTH1
+     *            the distance of the points
      *
      * @return true if the condition is met, false otherwise
      */
-    public static boolean condition7() {
-        // TODO: Write condition 7 of the LIC
-        return true;
+    public static boolean condition7(int NUMPOINTS, Point[] POINTS, int K_PTS, double LENGTH1) {
+        if (NUMPOINTS < 3)
+            return false;
+        for (int i = 0; i + K_PTS - 1 < NUMPOINTS; i++) {
+            if (Point.calculateDistance(POINTS[i], POINTS[i + K_PTS - 1]) > LENGTH1)
+                return true;
+        }
+        return false;
     }
 
     /**
