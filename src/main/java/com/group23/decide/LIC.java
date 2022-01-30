@@ -15,17 +15,17 @@ public class LIC {
      * @param POINTS
      *            - The array of points
      *
-     * @param Length
+     * @param LENGTH1
      *            - The length to be evaluated against
      *
      * @return true if the there exists two consecutive points that are at a distance greater than the param length.
      *         False otherwise.
      */
-    public static boolean condition0(int NUMPOINTS, Point[] POINTS, double Length) {
+    public static boolean condition0(int NUMPOINTS, Point[] POINTS, double LENGTH1) {
         for (int i = 0; i < NUMPOINTS - 1; i++) {
             Point p1 = POINTS[i];
             Point p2 = POINTS[i + 1];
-            if (Point.calculateDistance(p1, p2) > Length) {
+            if (Point.calculateDistance(p1, p2) > LENGTH1) {
                 return true;
             }
         }
@@ -308,9 +308,13 @@ public class LIC {
         return true;
     }
 
-    public static boolean[] computeCMV() {
-        // TODO: Replace this with the function calls to all the conditions
-        boolean[] CMV = { false, true, true };
+    public static boolean[] computeCMV(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS, int[][] LCM,
+            boolean[] PUV) {
+        boolean[] CMV = { condition0(NUMPOINTS, POINTS, PARAMETERS.LENGTH1), condition1(),
+                condition2(NUMPOINTS, POINTS, PARAMETERS.EPSILON), condition3(NUMPOINTS, POINTS, PARAMETERS.AREA1),
+                condition4(NUMPOINTS, POINTS, PARAMETERS.Q_PTS, PARAMETERS.QUADS), condition5(NUMPOINTS, POINTS),
+                condition6(), condition7(NUMPOINTS, POINTS, PARAMETERS.K_PTS, PARAMETERS.LENGTH1), condition8(),
+                condition9(), condition10(), condition11(), condition12(), condition13(), condition14(), };
         return CMV;
     }
 }

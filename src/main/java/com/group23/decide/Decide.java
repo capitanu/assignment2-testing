@@ -1,7 +1,5 @@
 package com.group23.decide;
 
-import java.util.ArrayList;
-
 public class Decide {
 
     // Used encoding (similar to #define in C) for abstraction.
@@ -25,10 +23,15 @@ public class Decide {
     }
 
     public static void decide(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS, int[][] LCM, boolean[] PUV) {
+
+        // Basic checks on the input data
         checkData(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV);
 
         // Compute CMV
-        boolean[] CMV = LIC.computeCMV();
+        boolean[] CMV = LIC.computeCMV(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV);
+
+        // Compute the PUM
+        boolean[][] PUMatrix = PUM.computePUM(CMV, LCM);
 
     }
 
