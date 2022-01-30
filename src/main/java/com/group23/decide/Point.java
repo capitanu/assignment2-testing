@@ -85,4 +85,29 @@ public class Point {
         return Math.acos((a + b - c) / Math.sqrt(4 * a * b));
     }
 
+    /**
+     * This method takes 3 points in the cartesian system and calculates the area made by the triangle (P1,P2,P3)
+     *
+     * @param point1
+     *            - The first point
+     * @param point2
+     *            - The second point
+     * @param point3
+     *           - The third points
+     *
+     * @return area - the triangle (P1,P2,P3)
+     */
+    public static double calculateArea(Point point1, Point point2, Point point3) {
+        double a = calculateDistance(point1, point2);
+        double b = calculateDistance(point2, point3);
+        double c = calculateDistance(point3, point1);
+        double s = (a + b + c) / 2;
+        double area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+        // Impossible triangle, return 0, possiblity of throwing an exception
+        if(Double.isNaN(area)) { 
+            return 0;
+        }
+        return area;
+    }
+
 }

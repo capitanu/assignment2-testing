@@ -248,16 +248,32 @@ public class LIC {
         return true;
     }
 
-    /**
+     /**
      * Function that computes condition 10 of the LIC.
      *
-     * @param ...
+     * @param NUMPOINTS
+     *            the number of points
+     * @param POINTS
+     *            the data points
+     * @param AREA1
+     *            the area
+     * @param E_PTS
+     *            the first consecutive distance
+     * @param F_PTS
+     *            the second consecutive distance
+     *
      *
      * @return true if the condition is met, false otherwise
      */
-    public static boolean condition10() {
-        // TODO: Write condition 10 of the LIC
-        return true;
+    public static boolean condition10(int NUMPOINTS, Point[] POINTS, double AREA1, int E_PTS, int F_PTS) {
+        if (NUMPOINTS < 5 || E_PTS < 1 || F_PTS < 1 || (E_PTS + F_PTS) > (NUMPOINTS - 3))
+            return false;
+        for (int i = 0; i + E_PTS + F_PTS + 2 < NUMPOINTS; i++) {    
+            double area = Point.calculateArea(POINTS[i], POINTS[i+E_PTS + 1], POINTS[i+E_PTS+F_PTS + 2]);
+            if (area > AREA1)
+                return true;    
+        }
+        return false;
     }
 
     /**
