@@ -263,13 +263,23 @@ public class LIC {
     /**
      * Function that computes condition 11 of the LIC.
      *
-     * @param ...
+     * @param NUMPOINTS
+     *          the number of points
+     * @param POINTS
+     *        the data points
+     * @param G_PTS
+     *       the consecutive distance
      *
      * @return true if the condition is met, false otherwise
      */
-    public static boolean condition11() {
-        // TODO: Write condition 11 of the LIC
-        return true;
+    public static boolean condition11(int NUMPOINTS, Point[] POINTS, int G_PTS) {
+        if (NUMPOINTS < 3 || G_PTS < 1 || G_PTS > NUMPOINTS - 2)
+            return false;
+        for(int i = 0; i + G_PTS < NUMPOINTS; i++) {
+            if(POINTS[i +G_PTS].getX() - POINTS[i].getX() < 0)
+                return true;
+        }
+        return false;
     }
 
     /**
