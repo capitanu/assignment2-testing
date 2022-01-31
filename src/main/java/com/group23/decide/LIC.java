@@ -298,15 +298,51 @@ public class LIC {
     }
 
     /**
-     * Function that computes condition 9 of the LIC.
+     * Function that checks if there exists at least one set of three data points separated by C_PTS and D_PTS that form
+     * an angle such that angle < (PI - EPSILON) || angle > (PI + EPSILON)
      *
-     * @param ...
+     * @param NUMPOINTS
+     *            - The number of data points
+     *
+     * @param POINTS
+     *            - The array of points
+     *
+     * @param C_PTS
+     *            - The amount of points in between points p0 and p1.
+     *
+     * @param D_PTS
+     *            - The amount of points in between points p1 and p2.
+     *
+     * @param EPSILON
+     *            - The value to evaluate the angle against
      *
      * @return true if the condition is met, false otherwise
      */
-    public static boolean condition9() {
-        // TODO: Write condition 9 of the LIC
-        return true;
+    public static boolean condition9(int NUMPOINTS, Point[] POINTS, int C_PTS, int D_PTS, double EPSILON) {
+        // Base cases
+        if ((NUMPOINTS < 5) || (C_PTS < 1) || (D_PTS < 1)) {
+            return false;
+        }
+
+        for (int i = 0; i < NUMPOINTS - 2 - C_PTS - D_PTS; i++) {
+            Point p0 = POINTS[i];
+
+            // point p1 comes directly after the C_PTS intervening
+            // p1 is always the vertex of the angle.
+            Point p1 = POINTS[i + 1 + C_PTS];
+
+            // point p2 comes directly after the D_PTS intervening
+            Point p2 = POINTS[i + 2 + C_PTS + D_PTS];
+
+            // if first or last (or both) points equal to middle(vertex)point => cond not held.
+            if ((Point.calculateDistance(p0, p1) != 0) && (Point.calculateDistance(p1, p2) != 0)) {
+                double angle = Point.calculateAngle(p0, p1, p2);
+                if ((angle < Math.PI - EPSILON) || (angle > Math.PI + EPSILON)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -407,7 +443,7 @@ public class LIC {
 			condition6(NUMPOINTS, POINTS, PARAMETERS.N_PTS, PARAMETERS.DIST),
 			condition7(NUMPOINTS, POINTS, PARAMETERS.K_PTS, PARAMETERS.LENGTH1),
 			condition8(NUMPOINTS, POINTS, PARAMETERS.A_PTS, PARAMETERS.B_PTS, PARAMETERS.RADIUS1),
-			condition9(),
+			condition9(NUMPOINTS, POINTS, PARAMETERS.C_PTS, PARAMETERS.D_PTS, PARAMETERS.EPSILON),
 			condition10(NUMPOINTS, POINTS, PARAMETERS.AREA1, PARAMETERS.E_PTS, PARAMETERS.F_PTS),
 			condition11(NUMPOINTS, POINTS, PARAMETERS.G_PTS),
 			condition12(),
