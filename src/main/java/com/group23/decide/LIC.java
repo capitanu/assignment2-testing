@@ -407,49 +407,18 @@ public class LIC {
         return true;
     }
 
-
     /**
      * Function that computes condition 13 of the LIC.
      *
-     * @param NUMPOINTS
-     *            - the number of data points
-     * @param POINTS
-     *            - data points
-     * @param RADIUS1
-     *            - radius of the circle
-     * @param RADIUS2
-     *            - radius of second circle
-     * @param A_PTS
-     *            - number of points between p1 and p2
-     * @param B_PTS
-     *            - number of points between p2 and p3
+     * @param ...
      *
      * @return true if the condition is met, false otherwise
      */
-    public static boolean condition13(int NUMPOINTS, Point[] POINTS, double RADIUS1, double RADIUS2, int A_PTS, int B_PTS) {
-        boolean first = false;
-        boolean second = false;
-        for (int i = 0; i < NUMPOINTS - 2 - A_PTS - B_PTS; i++){
-            Point p1 = POINTS[i];
-            Point p2 = POINTS[i + 1 + A_PTS];
-            Point p3 = POINTS[i + 2 + A_PTS + B_PTS];
-            
-            double radiusSmall = Point.calcRadiusSmallestCircle(p1, p2, p3);
-            
-            if (radiusSmall > RADIUS1 && NUMPOINTS >= 5){
-                first = true;
-            }
-            if (radiusSmall <= RADIUS2 && NUMPOINTS >= 5){
-                second = true;
-            }
-        }
-        if(first && second){
-            return true;
-        }		
-    
-            return false;
-        }
-    
+    public static boolean condition13() {
+        // TODO: Write condition 13 of the LIC
+        return true;
+    }
+
     /**
      * Function that computes condition 14 of the LIC.
      *
@@ -457,9 +426,30 @@ public class LIC {
      *
      * @return true if the condition is met, false otherwise
      */
-    public static boolean condition14() {
-        // TODO: Write condition 14 of the LIC
-        return true;
+    public static boolean condition14(int NUMPOINTS, Point[] POINTS, int E_PTS, int F_PTS, double AREA1, double AREA2) {
+        boolean first = false;
+        boolean second = false;
+
+        for(int i = 0; i < NUMPOINTS - 2 - E_PTS - F_PTS; i++){
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i + 1 + E_PTS];
+            Point p3 = POINTS[i + 2 + E_PTS + F_PTS];
+            double area = Point.calculateArea(p1, p2, p3);
+
+            if(area > AREA1){
+                first = true;
+            }
+            
+            if(area < AREA2){
+                second = true;
+            }
+        }
+
+        if(first && second && NUMPOINTS >= 5){
+            return true;
+        }
+
+        return false;
     }
 
     public static boolean[] computeCMV(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS, int[][] LCM,
@@ -478,8 +468,8 @@ public class LIC {
 			condition10(NUMPOINTS, POINTS, PARAMETERS.AREA1, PARAMETERS.E_PTS, PARAMETERS.F_PTS),
 			condition11(NUMPOINTS, POINTS, PARAMETERS.G_PTS),
 			condition12(),
-			condition13(NUMPOINTS, POINTS, PARAMETERS.RADIUS1, PARAMETERS.RADIUS2, PARAMETERS.A_PTS, PARAMETERS.B_PTS),
-			condition14(),
+			condition13(),
+			condition14(NUMPOINTS, POINTS, PARAMETERS.E_PTS, PARAMETERS.F_PTS, PARAMETERS.AREA1, PARAMETERS.AREA2)
 		};
         return CMV;
     }

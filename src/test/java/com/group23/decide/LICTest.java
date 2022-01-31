@@ -504,4 +504,47 @@ public class LICTest {
         int F_PTS = 2;
         assertTrue(LIC.condition10(points.length, points, AREA1, E_PTS, F_PTS));
     }
+	
+    /**
+     * Testing that CMV14 works on a trivial case
+    */
+    @Test
+    public void cmv14TrivialWorks(){
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(4, 0);
+        Point p3 = new Point(1, 1);
+        Point p4 = new Point(0, 4);
+        assertFalse(LIC.condition14(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 50, 1));
+    }
+    
+    
+    /**
+     * Testing that CMV14 accepts input expected to be valid
+    */
+    @Test
+    public void cmv14AcceptWorks(){
+        Point p0 = new Point(0, 4);
+        Point p1 = new Point(10, 0);
+        Point p2 = new Point(-5, 0);
+        Point p3 = new Point(0, 10);
+        Point p4 = new Point(10, 10);
+        Point p5 = new Point(5, 0);
+        assertTrue(LIC.condition14(6, new Point[] { p0, p1, p2, p3, p4, p5 }, 1, 2, 19, 21));
+    }
+    
+    
+    /**
+     * Testing that CMV14 rejects input expected to be invalid
+    */ 
+    @Test
+    public void cmv14RejectWorks(){
+        Point p0 = new Point(0, 5);
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(4, 0);
+        Point p3 = new Point(10, 0);
+        Point p4 = new Point(10, 10);
+        Point p5 = new Point(-10, 0);
+        assertFalse(LIC.condition14(6, new Point[] { p0, p1, p2, p3, p4, p5 }, 2, 1, 60, 40));
+    }    
 }
