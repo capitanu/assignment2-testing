@@ -35,24 +35,13 @@ public class LIC {
     /**
      * Function that computes condition 1 of the LIC.
      *
-     * @param NUMPOINTS
-     *            - the number of data points
-     * @param POINTS
-     *            - data points
-     * @param RADIUS1
-     *            - radius of the circle
-     *              
+     * @param ...
      *
      * @return true if the condition is met, false otherwise
      */
-    public static boolean condition1(int NUMPOINTS, Point[] POINTS, double RADIUS1) {
-        for (int i = 0; i < NUMPOINTS - 2; i++){
-            double radiusSmallest = Point.calcRadiusSmallestCircle(POINTS[i], POINTS[i+1], POINTS[i+2]);
-            if (radiusSmallest > RADIUS1){
-                return true;
-            }
-        }
-        return false;
+    public static boolean condition1() {
+        // TODO: Write condition 1 of the LIC
+        return true;
     }
 
     /**
@@ -418,18 +407,49 @@ public class LIC {
         return true;
     }
 
+
     /**
      * Function that computes condition 13 of the LIC.
      *
-     * @param ...
+     * @param NUMPOINTS
+     *            - the number of data points
+     * @param POINTS
+     *            - data points
+     * @param RADIUS1
+     *            - radius of the circle
+     * @param RADIUS2
+     *            - radius of second circle
+     * @param A_PTS
+     *            - number of points between p1 and p2
+     * @param B_PTS
+     *            - number of points between p2 and p3
      *
      * @return true if the condition is met, false otherwise
      */
-    public static boolean condition13() {
-        // TODO: Write condition 13 of the LIC
-        return true;
-    }
-
+    public static boolean condition13(int NUMPOINTS, Point[] POINTS, double RADIUS1, double RADIUS2, int A_PTS, int B_PTS) {
+        boolean first = false;
+        boolean second = false;
+        for (int i = 0; i < NUMPOINTS - 2 - A_PTS - B_PTS; i++){
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i + 1 + A_PTS];
+            Point p3 = POINTS[i + 2 + A_PTS + B_PTS];
+            
+            double radiusSmall = Point.calcRadiusSmallestCircle(p1, p2, p3);
+            
+            if (radiusSmall > RADIUS1 && NUMPOINTS >= 5){
+                first = true;
+            }
+            if (radiusSmall <= RADIUS2 && NUMPOINTS >= 5){
+                second = true;
+            }
+        }
+        if(first && second){
+            return true;
+        }		
+    
+            return false;
+        }
+    
     /**
      * Function that computes condition 14 of the LIC.
      *
@@ -446,7 +466,7 @@ public class LIC {
             boolean[] PUV) {
         boolean[] CMV = {
 			condition0(NUMPOINTS, POINTS, PARAMETERS.LENGTH1),
-			condition1(NUMPOINTS, POINTS, PARAMETERS.RADIUS1),
+			condition1(),
 			condition2(NUMPOINTS, POINTS, PARAMETERS.EPSILON),
 			condition3(NUMPOINTS, POINTS, PARAMETERS.AREA1),
 			condition4(NUMPOINTS, POINTS, PARAMETERS.Q_PTS, PARAMETERS.QUADS),
@@ -458,7 +478,7 @@ public class LIC {
 			condition10(NUMPOINTS, POINTS, PARAMETERS.AREA1, PARAMETERS.E_PTS, PARAMETERS.F_PTS),
 			condition11(NUMPOINTS, POINTS, PARAMETERS.G_PTS),
 			condition12(),
-			condition13(),
+			condition13(NUMPOINTS, POINTS, PARAMETERS.RADIUS1, PARAMETERS.RADIUS2, PARAMETERS.A_PTS, PARAMETERS.B_PTS),
 			condition14(),
 		};
         return CMV;
