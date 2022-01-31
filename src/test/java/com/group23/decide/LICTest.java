@@ -257,6 +257,86 @@ public class LICTest {
         assertFalse(LIC.condition8(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 1.26));
     }
 
+    /**
+     * Testing that CMV9 accepts inputs expected to be valid where EPSILON is 0.
+     */
+    @Test
+    public void cmv9AcceptWorks90DegEps0() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(1, 1);
+        Point p2 = new Point(2, 0);
+        Point p3 = new Point(2, 1);
+        Point p4 = new Point(2, 2);
+        assertTrue(LIC.condition9(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 0));
+    }
+
+    /**
+     * Testing that CMV9 accepts inputs expected to be valid where EPSILON is not 0.
+     */
+    @Test
+    public void cmv9AcceptWorks90DegEpsNot0() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(1, 1);
+        Point p2 = new Point(2, 0);
+        Point p3 = new Point(2, 1);
+        Point p4 = new Point(2, 2);
+        assertTrue(LIC.condition9(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, Math.toRadians(45)));
+    }
+
+    /**
+     * Testing that CMV9 rejects inputs expected to be invalid where EPSILON is not 0.
+     */
+    @Test
+    public void cmv9RejectWorks90DegEpsNot0() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(1, 1);
+        Point p2 = new Point(2, 0);
+        Point p3 = new Point(2, 1);
+        Point p4 = new Point(2, 2);
+        assertFalse(LIC.condition9(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 2));
+    }
+
+    /**
+     * Testing that CMV9 rejects inputs expected to be invalid where EPSILON is 0.
+     */
+    @Test
+    public void cmv9RejectWorks90DegEps0() {
+        Point p0 = new Point(-2, 0);
+        Point p1 = new Point(-1, 0);
+        Point p2 = new Point(0, 0);
+        Point p3 = new Point(1, 0);
+        Point p4 = new Point(2, 0);
+        assertFalse(LIC.condition9(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 0));
+    }
+
+    /**
+     * Testing that CMV9 rejects inputs expected to be invalid where one point is the same as the vertex point
+     */
+    @Test
+    public void cmv9RejectWorks1PointSameAsVertex() {
+        // p0 equal to p2 which is the vertex of angle {p0,p2,p4}
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(-1, 0);
+        Point p2 = new Point(0, 0);
+        Point p3 = new Point(1, 0);
+        Point p4 = new Point(2, 0);
+        assertFalse(LIC.condition9(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 0));
+    }
+
+    /**
+     * Testing that CMV9 rejects inputs expected to be invalid where two points are the same as the vertex point
+     */
+    @Test
+    public void cmv9RejectWorks2PtsSameAsVertex() {
+        // p0 and p4 equal to p2 where the latter is the vertex of angle {p0,p2,p4}
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(-1, 0);
+        Point p2 = new Point(0, 0);
+        Point p3 = new Point(1, 0);
+        Point p4 = new Point(0, 0);
+        assertFalse(LIC.condition9(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 0));
+    }
+
     /*
      * Testing that CMV6 rejects if N_PTS < 3
      */
