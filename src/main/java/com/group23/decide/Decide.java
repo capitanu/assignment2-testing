@@ -7,6 +7,10 @@ public class Decide {
     public static final int ORR = 2;
     public static final int NOTUSED = 3;
 
+    public static final boolean PRINT_CMV = false;
+    public static final boolean PRINT_PUM = false;
+    public static final boolean PRINT_FUV = false;
+
     public static void checkData(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS, int[][] LCM, boolean[] PUV) {
         // number of points in the list needs to be equal to the declared NUMPOINTS.
         Preconditions.checkArgument(POINTS.length == NUMPOINTS);
@@ -24,7 +28,7 @@ public class Decide {
         Preconditions.checkArgument(PARAMETERS.DIST >= 0);
     }
 
-    public static void decide(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS, int[][] LCM, boolean[] PUV) {
+    public static boolean decide(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS, int[][] LCM, boolean[] PUV) {
 
         // Basic checks on the input data
         checkData(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV);
@@ -32,9 +36,40 @@ public class Decide {
         // Compute CMV
         boolean[] CMV = LIC.computeCMV(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV);
 
+        if (PRINT_CMV) {
+            for (int i = 0; i < CMV.length; i++) {
+                System.out.print(CMV[i] + " ");
+            }
+            System.out.println();
+        }
+
         // Compute the PUM
         boolean[][] PUMatrix = PUM.computePUM(CMV, LCM);
 
+        if (PRINT_PUM) {
+            for (int i = 0; i < PUMatrix.length; i++) {
+                for (int j = 0; j < PUMatrix[i].length; j++)
+                    System.out.print(PUMatrix[i][j] + " ");
+                System.out.println();
+            }
+        }
+
+        // Compute the FUV
+        boolean[] FUVector = FUV.computeFUV(PUMatrix);
+
+        if (PRINT_FUV) {
+            for (int i = 0; i < FUVector.length; i++) {
+                System.out.print(FUVector[i] + " ");
+            }
+            System.out.println();
+        }
+
+        // Compute LAUNCH
+        for (int i = 0; i < FUVector.length; i++)
+            if (!FUVector[i])
+                return false;
+
+        return true;
     }
 
     public static void main(String[] args) {
@@ -77,7 +112,12 @@ public class Decide {
         boolean[] PUV = { true, true, false, true, false, false, false, true, true, false, true, false, true, true,
                 false };
 
-        decide(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV);
+        boolean LAUNCH = decide(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV);
+
+        if (LAUNCH)
+            System.out.println("LAUNCH");
+        else
+            System.out.println("NO LAUNCH");
 
     }
 }
