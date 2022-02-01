@@ -272,5 +272,5 @@ public class Point {
         // Return the smallest of the 4 radius's
         return Math.min(radius, Math.min(radius2, Math.min(radius3, radius4)));
     }
-	
+
 }
