@@ -41,40 +41,36 @@ public class LICTest {
         assertFalse(LIC.condition0(2, new Point[] { p0, p1 }, 10));
     }
 
-/**
+    /**
      * Testing that CMV1 works on a trivial case
-    */
+     */
     @Test
-    public void cmv1TrivialWorks(){
+    public void cmv1TrivialWorks() {
         Point p0 = new Point(0, 0);
         assertFalse(LIC.condition1(3, new Point[] { p0, p0, p0 }, 1));
     }
-    
-    
+
     /**
      * Testing that CMV1 accepts input expected to be valid
-    */ 
+     */
     @Test
-    public void cmv1AcceptWorks(){
+    public void cmv1AcceptWorks() {
         Point p0 = new Point(0, 0);
         Point p1 = new Point(0, 10);
         Point p2 = new Point(10, 0);
         assertTrue(LIC.condition1(3, new Point[] { p0, p1, p2 }, 1));
     }
-    
-    
+
     /**
      * Testing that CMV1 rejects input expected to be invalid
-    */ 
+     */
     @Test
-    public void cmv1RejectWorks(){
+    public void cmv1RejectWorks() {
         Point p0 = new Point(2, 2);
         Point p1 = new Point(3, 2);
         Point p2 = new Point(2, 3);
         assertFalse(LIC.condition1(3, new Point[] { p0, p1, p2 }, 10));
     }
-    
-
 
     /**
      * Testing that CMV2 works on a trivial case
@@ -632,6 +628,47 @@ public class LICTest {
         double LENGTH1 = 0.5;
         double LENGTH2 = 2.5;
         assertTrue(LIC.condition12(points.length, points, K_PTS, LENGTH1, LENGTH2));
+    }
+
+    /**
+     * Testing that CMV13 works on a trivial case
+     */
+    @Test
+    public void cmv13TrivialWorks() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(4, 1);
+        Point p3 = new Point(1, 1);
+        Point p4 = new Point(1, 4);
+        assertFalse(LIC.condition13(5, new Point[] { p0, p1, p2, p3, p4 }, 25, 1, 1, 1));
+    }
+
+    /**
+     * Testing that CMV13 accepts input expected to be valid
+     */
+    @Test
+    public void cmv13AcceptWorks() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(10, 0);
+        Point p2 = new Point(0, 4);
+        Point p3 = new Point(0, 10);
+        Point p4 = new Point(10, 10);
+        Point p5 = new Point(1, 1);
+        assertTrue(LIC.condition13(6, new Point[] { p0, p1, p2, p3, p4, p5 }, 1, 2, 1, 2));
+    }
+
+    /**
+     * Testing that CMV13 rejects input expected to be invalid
+     */
+    @Test
+    public void cmv13RejectWorks() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(0, 10);
+        Point p2 = new Point(4, 0);
+        Point p3 = new Point(10, 0);
+        Point p4 = new Point(10, 0);
+        Point p5 = new Point(2, 2);
+        assertFalse(LIC.condition13(6, new Point[] { p0, p1, p2, p3, p4, p5 }, 2, 1, 1, 2));
     }
 
 }
