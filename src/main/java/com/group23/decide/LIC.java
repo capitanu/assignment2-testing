@@ -398,13 +398,35 @@ public class LIC {
     /**
      * Function that computes condition 12 of the LIC.
      *
-     * @param ...
+     * @param NUMPOINTS
+     *            the number of points
+     * @param POINTS
+     *            the data points
+     * @param K_PTS
+     *            the consecutive distance
+     * @param LENGTH1
+     *            the lower bound distance
+     * @param LENGTH2
+     *            the upper bound distance
      *
      * @return true if the condition is met, false otherwise
      */
-    public static boolean condition12() {
-        // TODO: Write condition 12 of the LIC
-        return true;
+    public static boolean condition12(int NUMPOINTS, Point[] POINTS, int K_PTS, double LENGTH1, double LENGTH2) {
+        if (NUMPOINTS < 3 || LENGTH2 < 0)
+            return false;
+        boolean cond1 = false, cond2 = false;
+
+        for (int i = 0; i + K_PTS + 1 < NUMPOINTS; i++) {
+            double dist = Point.calculateDistance(POINTS[i], POINTS[i + K_PTS + 1]);
+            if (dist > LENGTH1)
+                cond1 = true;
+            if (dist < LENGTH2)
+                cond2 = true;
+            if (cond1 && cond2)
+                return true;
+        }
+
+        return false;
     }
 
     /**
@@ -430,22 +452,22 @@ public class LIC {
         boolean first = false;
         boolean second = false;
 
-        for(int i = 0; i < NUMPOINTS - 2 - E_PTS - F_PTS; i++){
+        for (int i = 0; i < NUMPOINTS - 2 - E_PTS - F_PTS; i++) {
             Point p1 = POINTS[i];
             Point p2 = POINTS[i + 1 + E_PTS];
             Point p3 = POINTS[i + 2 + E_PTS + F_PTS];
             double area = Point.calculateArea(p1, p2, p3);
 
-            if(area > AREA1){
+            if (area > AREA1) {
                 first = true;
             }
-            
-            if(area < AREA2){
+
+            if (area < AREA2) {
                 second = true;
             }
         }
 
-        if(first && second && NUMPOINTS >= 5){
+        if (first && second && NUMPOINTS >= 5) {
             return true;
         }
 
@@ -454,23 +476,18 @@ public class LIC {
 
     public static boolean[] computeCMV(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS, int[][] LCM,
             boolean[] PUV) {
-        boolean[] CMV = {
-			condition0(NUMPOINTS, POINTS, PARAMETERS.LENGTH1),
-			condition1(),
-			condition2(NUMPOINTS, POINTS, PARAMETERS.EPSILON),
-			condition3(NUMPOINTS, POINTS, PARAMETERS.AREA1),
-			condition4(NUMPOINTS, POINTS, PARAMETERS.Q_PTS, PARAMETERS.QUADS),
-			condition5(NUMPOINTS, POINTS),
-			condition6(NUMPOINTS, POINTS, PARAMETERS.N_PTS, PARAMETERS.DIST),
-			condition7(NUMPOINTS, POINTS, PARAMETERS.K_PTS, PARAMETERS.LENGTH1),
-			condition8(NUMPOINTS, POINTS, PARAMETERS.A_PTS, PARAMETERS.B_PTS, PARAMETERS.RADIUS1),
-			condition9(NUMPOINTS, POINTS, PARAMETERS.C_PTS, PARAMETERS.D_PTS, PARAMETERS.EPSILON),
-			condition10(NUMPOINTS, POINTS, PARAMETERS.AREA1, PARAMETERS.E_PTS, PARAMETERS.F_PTS),
-			condition11(NUMPOINTS, POINTS, PARAMETERS.G_PTS),
-			condition12(),
-			condition13(),
-			condition14(NUMPOINTS, POINTS, PARAMETERS.E_PTS, PARAMETERS.F_PTS, PARAMETERS.AREA1, PARAMETERS.AREA2)
-		};
+        boolean[] CMV = { condition0(NUMPOINTS, POINTS, PARAMETERS.LENGTH1), condition1(),
+                condition2(NUMPOINTS, POINTS, PARAMETERS.EPSILON), condition3(NUMPOINTS, POINTS, PARAMETERS.AREA1),
+                condition4(NUMPOINTS, POINTS, PARAMETERS.Q_PTS, PARAMETERS.QUADS), condition5(NUMPOINTS, POINTS),
+                condition6(NUMPOINTS, POINTS, PARAMETERS.N_PTS, PARAMETERS.DIST),
+                condition7(NUMPOINTS, POINTS, PARAMETERS.K_PTS, PARAMETERS.LENGTH1),
+                condition8(NUMPOINTS, POINTS, PARAMETERS.A_PTS, PARAMETERS.B_PTS, PARAMETERS.RADIUS1),
+                condition9(NUMPOINTS, POINTS, PARAMETERS.C_PTS, PARAMETERS.D_PTS, PARAMETERS.EPSILON),
+                condition10(NUMPOINTS, POINTS, PARAMETERS.AREA1, PARAMETERS.E_PTS, PARAMETERS.F_PTS),
+                condition11(NUMPOINTS, POINTS, PARAMETERS.G_PTS),
+                condition12(NUMPOINTS, POINTS, PARAMETERS.K_PTS, PARAMETERS.LENGTH1, PARAMETERS.LENGTH2), condition13(),
+                condition14(NUMPOINTS, POINTS, PARAMETERS.E_PTS, PARAMETERS.F_PTS, PARAMETERS.AREA1,
+                        PARAMETERS.AREA2) };
         return CMV;
     }
 }
