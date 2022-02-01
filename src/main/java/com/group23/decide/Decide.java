@@ -86,7 +86,7 @@ public class Decide {
         POINTS[3] = new Point(-1, 7);
         POINTS[4] = new Point(-5, -3);
 
-        Parameters PARAMETERS = new Parameters(7, 8, 9, 3, 4, 4, 6, 6, 7, 13, 8, 9, 9, 10, 10, 11, 12, 13, 14);
+        Parameters PARAMETERS = new Parameters(7, 8, 2.5, 3, 4, 3, 6, 3, 1, 3, 1, 1, 1, 1, 1, 3, 12, 13, 14);
 
         int[][] LCM = {
                 { ANDD, ANDD, ORR, ANDD, NOTUSED, NOTUSED, ANDD, ORR, ORR, ANDD, ORR, NOTUSED, NOTUSED, ORR, NOTUSED },

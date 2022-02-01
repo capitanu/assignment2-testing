@@ -16,12 +16,14 @@ public class LIC {
      *            - The array of points
      *
      * @param LENGTH1
-     *            - The length to be evaluated against
+     *            (non-negative) - The length to be evaluated against
      *
      * @return true if the there exists two consecutive points that are at a distance greater than the param length.
      *         False otherwise.
      */
     public static boolean condition0(int NUMPOINTS, Point[] POINTS, double LENGTH1) {
+        Preconditions.checkArgument(LENGTH1 >= 0);
+
         for (int i = 0; i < NUMPOINTS - 1; i++) {
             Point p1 = POINTS[i];
             Point p2 = POINTS[i + 1];
@@ -40,12 +42,14 @@ public class LIC {
      * @param POINTS
      *            - data points
      * @param RADIUS1
-     *            - radius of the circle
+     *            (non-negative) - radius of the circle
      * 
      *
      * @return true if the condition is met, false otherwise
      */
     public static boolean condition1(int NUMPOINTS, Point[] POINTS, double RADIUS1) {
+        Preconditions.checkArgument(RADIUS1 >= 0);
+
         for (int i = 0; i < NUMPOINTS - 2; i++) {
             double radiusSmallest = Point.calcRadiusSmallestCircle(POINTS[i], POINTS[i + 1], POINTS[i + 2]);
             if (radiusSmallest > RADIUS1) {
@@ -64,11 +68,13 @@ public class LIC {
      * @param POINTS
      *            - data points
      * @param EPSILON
-     *            - epsilon used in the condition
+     *            (in [0, PI[) - epsilon used in the condition
      *
      * @return true if the condition is met, false otherwise
      */
     public static boolean condition2(int NUMPOINTS, Point[] POINTS, double EPSILON) {
+        Preconditions.checkArgument(EPSILON >= 0 && EPSILON < Math.PI);
+
         for (int i = 0; i < NUMPOINTS - 2; i++) {
             Point p1 = POINTS[i];
             Point p2 = POINTS[i + 1]; // vertex of the angle
@@ -91,11 +97,13 @@ public class LIC {
      * @param POINTS
      *            - data points
      * @param AREA1
-     *            - threshold value
+     *            (non-negative) - threshold value
      *
      * @return true if the condition is met, false otherwise
      */
     public static boolean condition3(int NUMPOINTS, Point[] POINTS, double AREA1) {
+        Preconditions.checkArgument(AREA1 >= 0);
+
         for (int i = 0; i < NUMPOINTS - 2; i++) {
             Point p1 = POINTS[i];
             Point p2 = POINTS[i + 1];
@@ -119,13 +127,15 @@ public class LIC {
      * @param POINTS
      *            the data points
      * @param Q_PTS
-     *            the number of expected consecutive points
+     *            (in [2, NUMPOINTS]) the number of expected consecutive points
      * @param QUADS
-     *            the number of quadrants
+     *            (in [1, 3]) the number of quadrants
      *
      * @return true if the condition is met, false otherwise
      */
     public static boolean condition4(int NUMPOINTS, Point[] POINTS, int Q_PTS, int QUADS) {
+        Preconditions.checkInInterval(Q_PTS, 2, NUMPOINTS);
+        Preconditions.checkInInterval(QUADS, 1, 3);
 
         for (int i = 0; i <= NUMPOINTS - Q_PTS; i++) {
             boolean[] q_filled = { false, false, false, false };
@@ -207,16 +217,18 @@ public class LIC {
      * @param POINTS
      *            the data points
      * @param N_PTS
-     *            the number of expected consecutive points
+     *            (in [3, NUMPOINTS]) the number of expected consecutive points
      * @param DIST
-     *            the distance to be checked with
+     *            (non-negative) the distance to be checked with
      *
      * @return true if the condition is met, false otherwise
      */
     public static boolean condition6(int NUMPOINTS, Point[] POINTS, int N_PTS, double DIST) {
-        if (NUMPOINTS < 3) {
+        if (NUMPOINTS < 3)
             return false;
-        }
+        Preconditions.checkInInterval(N_PTS, 3, NUMPOINTS);
+        Preconditions.checkArgument(DIST >= 0);
+
         for (int i = 0; i <= NUMPOINTS - N_PTS; i++) {
             if (POINTS[i].equals(POINTS[N_PTS + i - 1])) {
                 for (int j = i + 1; j - i + 1 < N_PTS; j++) {
@@ -241,7 +253,7 @@ public class LIC {
      * @param POINTS
      *            the data points
      * @param K_PTS
-     *            the consecutive distance
+     *            (in [1, NUMPOINTS - 2]) the consecutive distance
      * @param LENGTH1
      *            the distance of the points
      *
@@ -250,6 +262,8 @@ public class LIC {
     public static boolean condition7(int NUMPOINTS, Point[] POINTS, int K_PTS, double LENGTH1) {
         if (NUMPOINTS < 3)
             return false;
+        Preconditions.checkInInterval(K_PTS, 1, NUMPOINTS - 2);
+
         for (int i = 0; i + K_PTS - 1 < NUMPOINTS; i++) {
             if (Point.calculateDistance(POINTS[i], POINTS[i + K_PTS - 1]) > LENGTH1)
                 return true;
@@ -268,10 +282,10 @@ public class LIC {
      *            - The array of points
      *
      * @param A_PTS
-     *            - The amount of points in between points p0 and p1.
+     *            (strictly positive) - The amount of points in between points p0 and p1.
      *
      * @param B_PTS
-     *            - The amount of points in between points p1 and p2.
+     *            (strictly positive) - The amount of points in between points p1 and p2.
      *
      * @param RADIUS1
      *            - The radius of the circle we want to evaluate whether the set {p0, p1, p2} can fit in
@@ -281,9 +295,11 @@ public class LIC {
      */
     public static boolean condition8(int NUMPOINTS, Point[] POINTS, int A_PTS, int B_PTS, double RADIUS1) {
         // Base cases
-        if ((NUMPOINTS < 5) || (A_PTS < 1) || (B_PTS < 1)) {
+        if (NUMPOINTS < 5)
             return false;
-        }
+        Preconditions.checkArgument(A_PTS >= 1);
+        Preconditions.checkArgument(B_PTS >= 1);
+        Preconditions.checkInInterval(A_PTS + B_PTS, 2, NUMPOINTS - 3);
 
         for (int i = 0; i < NUMPOINTS - 2 - A_PTS - B_PTS; i++) {
             Point p0 = POINTS[i];
@@ -319,10 +335,10 @@ public class LIC {
      *            - The array of points
      *
      * @param C_PTS
-     *            - The amount of points in between points p0 and p1.
+     *            (strictly positive) - The amount of points in between points p0 and p1.
      *
      * @param D_PTS
-     *            - The amount of points in between points p1 and p2.
+     *            (strictly positive) - The amount of points in between points p1 and p2.
      *
      * @param EPSILON
      *            - The value to evaluate the angle against
@@ -331,9 +347,11 @@ public class LIC {
      */
     public static boolean condition9(int NUMPOINTS, Point[] POINTS, int C_PTS, int D_PTS, double EPSILON) {
         // Base cases
-        if ((NUMPOINTS < 5) || (C_PTS < 1) || (D_PTS < 1)) {
+        if (NUMPOINTS < 5)
             return false;
-        }
+        Preconditions.checkArgument(C_PTS >= 1);
+        Preconditions.checkArgument(D_PTS >= 1);
+        Preconditions.checkInInterval(C_PTS + D_PTS, 2, NUMPOINTS - 3);
 
         for (int i = 0; i < NUMPOINTS - 2 - C_PTS - D_PTS; i++) {
             Point p0 = POINTS[i];
@@ -366,16 +384,21 @@ public class LIC {
      * @param AREA1
      *            the area
      * @param E_PTS
-     *            the first consecutive distance
+     *            (strictly positive) the first consecutive distance
      * @param F_PTS
-     *            the second consecutive distance
+     *            (strictly positive) the second consecutive distance
      *
      *
      * @return true if the condition is met, false otherwise
      */
     public static boolean condition10(int NUMPOINTS, Point[] POINTS, double AREA1, int E_PTS, int F_PTS) {
-        if (NUMPOINTS < 5 || E_PTS < 1 || F_PTS < 1 || (E_PTS + F_PTS) > (NUMPOINTS - 3))
+        // Base cases
+        if (NUMPOINTS < 5)
             return false;
+        Preconditions.checkArgument(E_PTS >= 1);
+        Preconditions.checkArgument(F_PTS >= 1);
+        Preconditions.checkInInterval(E_PTS + F_PTS, 2, NUMPOINTS - 3);
+
         for (int i = 0; i + E_PTS + F_PTS + 2 < NUMPOINTS; i++) {
             double area = Point.calculateArea(POINTS[i], POINTS[i + E_PTS + 1], POINTS[i + E_PTS + F_PTS + 2]);
             if (area > AREA1)
@@ -392,13 +415,16 @@ public class LIC {
      * @param POINTS
      *            the data points
      * @param G_PTS
-     *            the consecutive distance
+     *            (strictly positive) the consecutive distance
      *
      * @return true if the condition is met, false otherwise
      */
     public static boolean condition11(int NUMPOINTS, Point[] POINTS, int G_PTS) {
-        if (NUMPOINTS < 3 || G_PTS < 1 || G_PTS > NUMPOINTS - 2)
+        // Base cases
+        if (NUMPOINTS < 3)
             return false;
+        Preconditions.checkInInterval(G_PTS, 1, NUMPOINTS - 2);
+
         for (int i = 0; i + G_PTS < NUMPOINTS; i++) {
             if (POINTS[i + G_PTS].getX() - POINTS[i].getX() < 0)
                 return true;
@@ -416,15 +442,18 @@ public class LIC {
      * @param K_PTS
      *            the consecutive distance
      * @param LENGTH1
-     *            the lower bound distance
+     *            (non-negative) the lower bound distance
      * @param LENGTH2
-     *            the upper bound distance
+     *            (non-negative) the upper bound distance
      *
      * @return true if the condition is met, false otherwise
      */
     public static boolean condition12(int NUMPOINTS, Point[] POINTS, int K_PTS, double LENGTH1, double LENGTH2) {
-        if (NUMPOINTS < 3 || LENGTH2 < 0)
+        if (NUMPOINTS < 3)
             return false;
+        Preconditions.checkArgument(LENGTH1 >= 0);
+        Preconditions.checkArgument(LENGTH2 >= 0);
+
         boolean cond1 = false, cond2 = false;
 
         for (int i = 0; i + K_PTS + 1 < NUMPOINTS; i++) {
@@ -448,9 +477,9 @@ public class LIC {
      * @param POINTS
      *            - data points
      * @param RADIUS1
-     *            - radius of the circle
+     *            (non-negative) - radius of the circle
      * @param RADIUS2
-     *            - radius of second circle
+     *            (non-negative) - radius of second circle
      * @param A_PTS
      *            - number of points between p1 and p2
      * @param B_PTS
@@ -460,6 +489,12 @@ public class LIC {
      */
     public static boolean condition13(int NUMPOINTS, Point[] POINTS, double RADIUS1, double RADIUS2, int A_PTS,
             int B_PTS) {
+        // Base cases
+        if (NUMPOINTS < 5)
+            return false;
+        Preconditions.checkArgument(RADIUS1 >= 0);
+        Preconditions.checkArgument(RADIUS2 >= 0);
+
         boolean first = false;
         boolean second = false;
         for (int i = 0; i < NUMPOINTS - 2 - A_PTS - B_PTS; i++) {
@@ -469,10 +504,10 @@ public class LIC {
 
             double radiusSmall = Point.calcRadiusSmallestCircle(p1, p2, p3);
 
-            if (radiusSmall > RADIUS1 && NUMPOINTS >= 5) {
+            if (radiusSmall > RADIUS1) {
                 first = true;
             }
-            if (radiusSmall <= RADIUS2 && NUMPOINTS >= 5) {
+            if (radiusSmall <= RADIUS2) {
                 second = true;
             }
         }
@@ -491,6 +526,11 @@ public class LIC {
      * @return true if the condition is met, false otherwise
      */
     public static boolean condition14(int NUMPOINTS, Point[] POINTS, int E_PTS, int F_PTS, double AREA1, double AREA2) {
+        if (NUMPOINTS < 5)
+            return false;
+        Preconditions.checkArgument(AREA1 >= 0);
+        Preconditions.checkArgument(AREA2 >= 0);
+
         boolean first = false;
         boolean second = false;
 
@@ -509,7 +549,7 @@ public class LIC {
             }
         }
 
-        if (first && second && NUMPOINTS >= 5) {
+        if (first && second) {
             return true;
         }
 
