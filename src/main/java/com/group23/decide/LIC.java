@@ -35,13 +35,24 @@ public class LIC {
     /**
      * Function that computes condition 1 of the LIC.
      *
-     * @param ...
+     * @param NUMPOINTS
+     *            - the number of data points
+     * @param POINTS
+     *            - data points
+     * @param RADIUS1
+     *            - radius of the circle
+     *              
      *
      * @return true if the condition is met, false otherwise
      */
-    public static boolean condition1() {
-        // TODO: Write condition 1 of the LIC
-        return true;
+    public static boolean condition1(int NUMPOINTS, Point[] POINTS, double RADIUS1) {
+        for (int i = 0; i < NUMPOINTS - 2; i++){
+            double radiusSmallest = Point.calcRadiusSmallestCircle(POINTS[i], POINTS[i+1], POINTS[i+2]);
+            if (radiusSmallest > RADIUS1){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -476,7 +487,7 @@ public class LIC {
 
     public static boolean[] computeCMV(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS, int[][] LCM,
             boolean[] PUV) {
-        boolean[] CMV = { condition0(NUMPOINTS, POINTS, PARAMETERS.LENGTH1), condition1(),
+        boolean[] CMV = { condition0(NUMPOINTS, POINTS, PARAMETERS.LENGTH1), condition1(NUMPOINTS, POINTS, PARAMETERS.RADIUS1),
                 condition2(NUMPOINTS, POINTS, PARAMETERS.EPSILON), condition3(NUMPOINTS, POINTS, PARAMETERS.AREA1),
                 condition4(NUMPOINTS, POINTS, PARAMETERS.Q_PTS, PARAMETERS.QUADS), condition5(NUMPOINTS, POINTS),
                 condition6(NUMPOINTS, POINTS, PARAMETERS.N_PTS, PARAMETERS.DIST),
