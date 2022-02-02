@@ -13,3 +13,6 @@ build:
 run:
 	@java -cp target/decide-1.0-SNAPSHOT.jar com.group23.decide.Decide
 
+test:
+	@mvn test
+
