@@ -378,9 +378,9 @@ public class LIC {
     }
 
     /**
-     * Function that checks if there are three data points separated by exactly E PTS and F PTS consecutive intervening points,
-     * respectively, that are the vertices of a triangle with area greater than AREA1. 
-     * The condition is not met when NUMPOINTS < 5.
+     * Function that checks if there are three data points separated by exactly E PTS and F PTS consecutive intervening
+     * points, respectively, that are the vertices of a triangle with area greater than AREA1. The condition is not met
+     * when NUMPOINTS < 5.
      *
      * @param NUMPOINTS
      *            the number of points
@@ -413,9 +413,9 @@ public class LIC {
     }
 
     /**
-     * Function that checks there exists at least one set of two data points, (X[i],Y[i]) and (X[j],Y[j]), 
-     * separated by exactly G PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j ) The
-     * condition is not met when NUMPOINTS < 3.
+     * Function that checks there exists at least one set of two data points, (X[i],Y[i]) and (X[j],Y[j]), separated by
+     * exactly G PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j ) The condition is not met
+     * when NUMPOINTS < 3.
      *
      * @param NUMPOINTS
      *            the number of points
@@ -440,11 +440,11 @@ public class LIC {
     }
 
     /**
-     * Function that checks there exists at least one set of two data points, separated by exactly K PTS consecutive intervening points,
-     * which are a distance greater than the length, LENGTH1, apart. 
-     * In addition, there exists at least one set of two data points (which can be the same or different from the two data points just mentioned), 
-     * separated by exactly K PTS consecutive intervening points, that are a distance less than the length, LENGTH2, apart. Both parts must be true 
-     * for the LIC to be true. The condition is not met when NUMPOINTS < 3.
+     * Function that checks there exists at least one set of two data points, separated by exactly K PTS consecutive
+     * intervening points, which are a distance greater than the length, LENGTH1, apart. In addition, there exists at
+     * least one set of two data points (which can be the same or different from the two data points just mentioned),
+     * separated by exactly K PTS consecutive intervening points, that are a distance less than the length, LENGTH2,
+     * apart. Both parts must be true for the LIC to be true. The condition is not met when NUMPOINTS < 3.
      *
      * @param NUMPOINTS
      *            the number of points
