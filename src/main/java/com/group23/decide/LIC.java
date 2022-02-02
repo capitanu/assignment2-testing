@@ -35,7 +35,8 @@ public class LIC {
     }
 
     /**
-     * Function that computes condition 1 of the LIC.
+     * Function that checks if there are at least a set of three consecutive points that cannot all be contained within
+     * a circle of radius Radius1
      *
      * @param NUMPOINTS
      *            - the number of data points
@@ -378,9 +379,9 @@ public class LIC {
     }
 
     /**
-     * Function that checks if there are three data points separated by exactly E PTS and F PTS consecutive intervening points,
-     * respectively, that are the vertices of a triangle with area greater than AREA1. 
-     * The condition is not met when NUMPOINTS < 5.
+     * Function that checks if there are three data points separated by exactly E PTS and F PTS consecutive intervening
+     * points, respectively, that are the vertices of a triangle with area greater than AREA1. The condition is not met
+     * when NUMPOINTS < 5.
      *
      * @param NUMPOINTS
      *            the number of points
@@ -413,9 +414,9 @@ public class LIC {
     }
 
     /**
-     * Function that checks there exists at least one set of two data points, (X[i],Y[i]) and (X[j],Y[j]), 
-     * separated by exactly G PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j ) The
-     * condition is not met when NUMPOINTS < 3.
+     * Function that checks there exists at least one set of two data points, (X[i],Y[i]) and (X[j],Y[j]), separated by
+     * exactly G PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j ) The condition is not met
+     * when NUMPOINTS < 3.
      *
      * @param NUMPOINTS
      *            the number of points
@@ -440,11 +441,11 @@ public class LIC {
     }
 
     /**
-     * Function that checks there exists at least one set of two data points, separated by exactly K PTS consecutive intervening points,
-     * which are a distance greater than the length, LENGTH1, apart. 
-     * In addition, there exists at least one set of two data points (which can be the same or different from the two data points just mentioned), 
-     * separated by exactly K PTS consecutive intervening points, that are a distance less than the length, LENGTH2, apart. Both parts must be true 
-     * for the LIC to be true. The condition is not met when NUMPOINTS < 3.
+     * Function that checks there exists at least one set of two data points, separated by exactly K PTS consecutive
+     * intervening points, which are a distance greater than the length, LENGTH1, apart. In addition, there exists at
+     * least one set of two data points (which can be the same or different from the two data points just mentioned),
+     * separated by exactly K PTS consecutive intervening points, that are a distance less than the length, LENGTH2,
+     * apart. Both parts must be true for the LIC to be true. The condition is not met when NUMPOINTS < 3.
      *
      * @param NUMPOINTS
      *            the number of points
@@ -481,7 +482,11 @@ public class LIC {
     }
 
     /**
-     * Function that computes condition 13 of the LIC.
+     * Function that checks if there exists at least on set of three consecutive points separated by exactly A_PTS and
+     * B_PTS points that cannot all be contained within a circle of Radius1 and that there exists a set of three
+     * consecutive points separeated by exactly A_PTS and B_PTS that can all be contained within a circle of Radius2.
+     * The set of points do not have to be the same. Both conditions have to be met for the LIC to be true. If NUMPOINTS
+     * < 5 the condition is not met.
      *
      * @param NUMPOINTS
      *            - the number of data points
@@ -530,9 +535,24 @@ public class LIC {
     }
 
     /**
-     * Function that computes condition 14 of the LIC.
-     *
-     * @param ...
+     * Function that checks if there exists at least on set of three consecutive points separated by exactly E_PTS and
+     * F_PTS points that are the vertices of a triangle with an area larger than AREA1 and that there exists a set of
+     * three consecutive points separeated by exactly E_PTS and P_PTS that are the vertices of a triangle with an area
+     * less than AREA2. The set of points do not have to be the same. Both conditions have to be met for the LIC to be
+     * true. If NUMPOINTS < 5 the condition is not met.
+     * 
+     * @param NUMPOINTS
+     *            - the number of data points
+     * @param POINTS
+     *            - data points
+     * @param A_PTS
+     *            - number of points between p1 and p2
+     * @param B_PTS
+     *            - number of points between p2 and p3
+     * @param AREA1
+     *            - first area
+     * @param AREA2
+     *            - second area
      *
      * @return true if the condition is met, false otherwise
      */
