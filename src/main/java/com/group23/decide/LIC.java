@@ -267,8 +267,8 @@ public class LIC {
             return false;
         Preconditions.checkInInterval(K_PTS, 1, NUMPOINTS - 2);
 
-        for (int i = 0; i + K_PTS - 1 < NUMPOINTS; i++) {
-            if (Point.calculateDistance(POINTS[i], POINTS[i + K_PTS - 1]) > LENGTH1)
+        for (int i = 0; i + K_PTS + 1 < NUMPOINTS; i++) {
+            if (Point.calculateDistance(POINTS[i], POINTS[i + K_PTS + 1]) > LENGTH1)
                 return true;
         }
         return false;
@@ -559,6 +559,7 @@ public class LIC {
         return false;
     }
 
+    // @formater:off
     public static boolean[] computeCMV(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS) {
         boolean[] CMV = { condition0(NUMPOINTS, POINTS, PARAMETERS.LENGTH1),
                 condition1(NUMPOINTS, POINTS, PARAMETERS.RADIUS1), condition2(NUMPOINTS, POINTS, PARAMETERS.EPSILON),
@@ -577,4 +578,5 @@ public class LIC {
                         PARAMETERS.AREA2) };
         return CMV;
     }
+    // @formater:on
 }

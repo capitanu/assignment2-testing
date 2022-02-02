@@ -72,7 +72,7 @@ public class IntegrationTests {
          * CMV true, true, true, true, false, true, true, false, true, true, true, true, true, true, true,
          */
         boolean[] CMV = LIC.computeCMV(NUMPOINTS, POINTS, PARAMETERS);
-        boolean[] expectedCMV = { true, true, true, true, false, true, true, false, true, true, true, true, true, true,
+        boolean[] expectedCMV = { true, true, true, true, false, true, true, true, true, true, true, true, true, true,
                 true };
         assertArrayEquals(CMV, expectedCMV);
 
@@ -83,16 +83,16 @@ public class IntegrationTests {
                 { true, true, true, true, false, true, true, true, true, true, true, true, true, true, true },
                 { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
                 { true, true, false, true, false, false, true, false, true, true, true, false, true, true, true },
-                { true, true, true, true, false, true, true, false, true, true, true, true, true, true, true },
-                { true, true, true, true, true, true, true, false, true, true, true, true, true, true, true },
-                { true, true, true, true, false, false, false, false, true, true, true, true, true, true, true },
+                { true, true, true, true, false, true, true, true, true, true, true, true, true, true, true },
+                { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                { true, true, true, true, false, true, true, true, true, true, true, true, true, true, true },
                 { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
                 { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
                 { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
                 { true, true, true, true, false, true, true, true, true, true, true, true, true, true, true },
                 { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
                 { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
-                { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true }, };
+                { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true } };
         assertArrayEquals(PUMatrix, expectedPUM);
 
         boolean[] FUVector = FUV.computeFUV(PUV, PUMatrix);
@@ -102,7 +102,6 @@ public class IntegrationTests {
 
         // The LAUNCH should be true
         assertTrue(Decide.decide(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV));
-
     }
 
 }

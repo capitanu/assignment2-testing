@@ -213,6 +213,78 @@ public class LICTest {
         assertFalse(LIC.condition5(2, new Point[] { p1, p2 }));
     }
 
+    /*
+     * Testing that CMV6 rejects if N_PTS < 3
+     */
+    @Test
+    public void cmv6RejectForLessThan3Points() {
+        Point p1 = new Point(2, 2);
+        Point p2 = new Point(3, 3);
+        assertFalse(LIC.condition6(2, new Point[] { p1, p2 }, 3, 1.5));
+    }
+
+    /**
+     * Testing that CMV6 rejects for 5 points, 3 point interval and distance 3
+     */
+    @Test
+    public void cmv6RejectCase() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(0, 1);
+        Point p2 = new Point(1, 0);
+        Point p3 = new Point(1, 1);
+        Point p4 = new Point(1, 2);
+        assertFalse(LIC.condition6(5, new Point[] { p0, p1, p2, p3, p4 }, 3, 3));
+    }
+
+    /**
+     * Testing that CMV6 passes for 5 points, 3 point interval and distance 1
+     */
+    @Test
+    public void cmv6PassCase() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(0, 1);
+        Point p2 = new Point(1, 0);
+        Point p3 = new Point(1, 2);
+        Point p4 = new Point(1, 1);
+        assertTrue(LIC.condition6(5, new Point[] { p0, p1, p2, p3, p4 }, 3, 1));
+    }
+
+    /**
+     * Testing that CMV7 rejects inputs expected to be invalid
+     */
+    @Test
+    public void cmv7RejectInvalid() {
+        Point p1 = new Point(2, 2);
+        Point p2 = new Point(3, 3);
+        assertFalse(LIC.condition7(2, new Point[] { p1, p2 }, 2, 1.5));
+    }
+
+    /**
+     * Testing that CMV7 rejects input not satisfied
+     */
+    @Test
+    public void cmv7RejectWorks() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(0, 1);
+        Point p2 = new Point(1, 0);
+        Point p3 = new Point(-1, 1);
+        Point p4 = new Point(1, 1);
+        assertFalse(LIC.condition7(5, new Point[] { p0, p1, p2, p3, p4 }, 3, Math.sqrt(2)));
+    }
+
+    /**
+     * Testing that CMV7 pass input not satisfied
+     */
+    @Test
+    public void cmv7PassWorks() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(0, 1);
+        Point p2 = new Point(1, 0);
+        Point p3 = new Point(-1, 1);
+        Point p4 = new Point(2, 1);
+        assertTrue(LIC.condition7(5, new Point[] { p0, p1, p2, p3, p4 }, 3, Math.sqrt(2) - 0.001));
+    }
+
     /**
      * Testing that CMV8 works on a trivial case
      */
@@ -368,123 +440,6 @@ public class LICTest {
         assertFalse(LIC.condition9(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 0));
     }
 
-    /*
-     * Testing that CMV6 rejects if N_PTS < 3
-     */
-    @Test
-    public void cmv6RejectForLessThan3Points() {
-        Point p1 = new Point(2, 2);
-        Point p2 = new Point(3, 3);
-        assertFalse(LIC.condition6(2, new Point[] { p1, p2 }, 3, 1.5));
-    }
-
-    /**
-     * Testing that CMV6 rejects for 5 points, 3 point interval and distance 3
-     */
-    @Test
-    public void cmv6RejectCase() {
-        Point p0 = new Point(0, 0);
-        Point p1 = new Point(0, 1);
-        Point p2 = new Point(1, 0);
-        Point p3 = new Point(1, 1);
-        Point p4 = new Point(1, 2);
-        assertFalse(LIC.condition6(5, new Point[] { p0, p1, p2, p3, p4 }, 3, 3));
-    }
-
-    /**
-     * Testing that CMV6 passes for 5 points, 3 point interval and distance 1
-     */
-    @Test
-    public void cmv6PassCase() {
-        Point p0 = new Point(0, 0);
-        Point p1 = new Point(0, 1);
-        Point p2 = new Point(1, 0);
-        Point p3 = new Point(1, 2);
-        Point p4 = new Point(1, 1);
-        assertTrue(LIC.condition6(5, new Point[] { p0, p1, p2, p3, p4 }, 3, 1));
-    }
-
-    /**
-     * Testing that CMV7 rejects inputs expected to be invalid
-     */
-    @Test
-    public void cmv7RejectInvalid() {
-        Point p1 = new Point(2, 2);
-        Point p2 = new Point(3, 3);
-        assertFalse(LIC.condition7(2, new Point[] { p1, p2 }, 2, 1.5));
-    }
-
-    /**
-     * Testing that CMV7 rejects input not satisfied
-     */
-    @Test
-    public void cmv7RejectWorks() {
-        Point p0 = new Point(0, 0);
-        Point p1 = new Point(0, 1);
-        Point p2 = new Point(1, 0);
-        Point p3 = new Point(-1, 1);
-        Point p4 = new Point(1, 1);
-        assertFalse(LIC.condition7(5, new Point[] { p0, p1, p2, p3, p4 }, 3, Math.sqrt(2)));
-    }
-
-    /**
-     * Testing that CMV7 pass input not satisfied
-     */
-    @Test
-    public void cmv7PassWorks() {
-        Point p0 = new Point(0, 0);
-        Point p1 = new Point(0, 1);
-        Point p2 = new Point(1, 0);
-        Point p3 = new Point(-1, 1);
-        Point p4 = new Point(2, 1);
-        assertTrue(LIC.condition7(5, new Point[] { p0, p1, p2, p3, p4 }, 3, Math.sqrt(2) - 0.001));
-    }
-
-    /**
-     * Testing that CMV11 rejects incorrect NUMPOINTS
-     */
-    @Test
-    public void cmv11RejectInvalidNumPoints() {
-        Point[] points = new Point[] { new Point(0, 0), new Point(0, 1), };
-
-        int G_PTS = 1;
-        assertFalse(LIC.condition11(points.length, points, G_PTS));
-    }
-
-    /**
-     * Testing that CMV11 rejects case where no points fullfill condition
-     */
-    @Test
-    public void cmv11RejectInvalid() {
-        Point[] points = new Point[] { new Point(0, 0), new Point(0, 1), new Point(1, 1), };
-
-        int G_PTS = 1;
-        assertFalse(LIC.condition11(points.length, points, G_PTS));
-    }
-
-    /**
-     * Testing that CMV11 accepts a trivial case
-     */
-    @Test
-    public void cmv11AcceptTrivial() {
-        Point[] points = new Point[] { new Point(0, 0), new Point(0, 1), new Point(-1, 1), };
-
-        int G_PTS = 1;
-        assertTrue(LIC.condition11(points.length, points, G_PTS));
-    }
-
-    /**
-     * Testing that CMV11 accepts a non-trivial case
-     */
-    @Test
-    public void cmv11AcceptWorks() {
-        Point[] points = new Point[] { new Point(0, 0), new Point(0, 1), new Point(-1, 1), new Point(2, 5),
-                new Point(-1, 1), };
-
-        int G_PTS = 2;
-        assertTrue(LIC.condition11(points.length, points, G_PTS));
-    }
-
     /**
      * Testing that CMV10 rejects AREA1 input expected to be invalid
      */
@@ -537,44 +492,48 @@ public class LICTest {
     }
 
     /**
-     * Testing that CMV14 works on a trivial case
+     * Testing that CMV11 rejects incorrect NUMPOINTS
      */
     @Test
-    public void cmv14TrivialWorks() {
-        Point p0 = new Point(0, 0);
-        Point p1 = new Point(1, 0);
-        Point p2 = new Point(4, 0);
-        Point p3 = new Point(1, 1);
-        Point p4 = new Point(0, 4);
-        assertFalse(LIC.condition14(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 50, 1));
+    public void cmv11RejectInvalidNumPoints() {
+        Point[] points = new Point[] { new Point(0, 0), new Point(0, 1), };
+
+        int G_PTS = 1;
+        assertFalse(LIC.condition11(points.length, points, G_PTS));
     }
 
     /**
-     * Testing that CMV14 accepts input expected to be valid
+     * Testing that CMV11 rejects case where no points fullfill condition
      */
     @Test
-    public void cmv14AcceptWorks() {
-        Point p0 = new Point(0, 4);
-        Point p1 = new Point(10, 0);
-        Point p2 = new Point(-5, 0);
-        Point p3 = new Point(0, 10);
-        Point p4 = new Point(10, 10);
-        Point p5 = new Point(5, 0);
-        assertTrue(LIC.condition14(6, new Point[] { p0, p1, p2, p3, p4, p5 }, 1, 2, 19, 21));
+    public void cmv11RejectInvalid() {
+        Point[] points = new Point[] { new Point(0, 0), new Point(0, 1), new Point(1, 1), };
+
+        int G_PTS = 1;
+        assertFalse(LIC.condition11(points.length, points, G_PTS));
     }
 
     /**
-     * Testing that CMV14 rejects input expected to be invalid
+     * Testing that CMV11 accepts a trivial case
      */
     @Test
-    public void cmv14RejectWorks() {
-        Point p0 = new Point(0, 5);
-        Point p1 = new Point(0, 0);
-        Point p2 = new Point(4, 0);
-        Point p3 = new Point(10, 0);
-        Point p4 = new Point(10, 10);
-        Point p5 = new Point(-10, 0);
-        assertFalse(LIC.condition14(6, new Point[] { p0, p1, p2, p3, p4, p5 }, 2, 1, 60, 40));
+    public void cmv11AcceptTrivial() {
+        Point[] points = new Point[] { new Point(0, 0), new Point(0, 1), new Point(-1, 1), };
+
+        int G_PTS = 1;
+        assertTrue(LIC.condition11(points.length, points, G_PTS));
+    }
+
+    /**
+     * Testing that CMV11 accepts a non-trivial case
+     */
+    @Test
+    public void cmv11AcceptWorks() {
+        Point[] points = new Point[] { new Point(0, 0), new Point(0, 1), new Point(-1, 1), new Point(2, 5),
+                new Point(-1, 1), };
+
+        int G_PTS = 2;
+        assertTrue(LIC.condition11(points.length, points, G_PTS));
     }
 
     /**
@@ -671,4 +630,44 @@ public class LICTest {
         assertFalse(LIC.condition13(6, new Point[] { p0, p1, p2, p3, p4, p5 }, 2, 1, 1, 2));
     }
 
+    /**
+     * Testing that CMV14 works on a trivial case
+     */
+    @Test
+    public void cmv14TrivialWorks() {
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(4, 0);
+        Point p3 = new Point(1, 1);
+        Point p4 = new Point(0, 4);
+        assertFalse(LIC.condition14(5, new Point[] { p0, p1, p2, p3, p4 }, 1, 1, 50, 1));
+    }
+
+    /**
+     * Testing that CMV14 accepts input expected to be valid
+     */
+    @Test
+    public void cmv14AcceptWorks() {
+        Point p0 = new Point(0, 4);
+        Point p1 = new Point(10, 0);
+        Point p2 = new Point(-5, 0);
+        Point p3 = new Point(0, 10);
+        Point p4 = new Point(10, 10);
+        Point p5 = new Point(5, 0);
+        assertTrue(LIC.condition14(6, new Point[] { p0, p1, p2, p3, p4, p5 }, 1, 2, 19, 21));
+    }
+
+    /**
+     * Testing that CMV14 rejects input expected to be invalid
+     */
+    @Test
+    public void cmv14RejectWorks() {
+        Point p0 = new Point(0, 5);
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(4, 0);
+        Point p3 = new Point(10, 0);
+        Point p4 = new Point(10, 10);
+        Point p5 = new Point(-10, 0);
+        assertFalse(LIC.condition14(6, new Point[] { p0, p1, p2, p3, p4, p5 }, 2, 1, 60, 40));
+    }
 }
