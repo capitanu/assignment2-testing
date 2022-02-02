@@ -34,7 +34,7 @@ public class Decide {
         checkData(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV);
 
         // Compute CMV
-        boolean[] CMV = LIC.computeCMV(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV);
+        boolean[] CMV = LIC.computeCMV(NUMPOINTS, POINTS, PARAMETERS);
 
         if (PRINT_CMV) {
             for (int i = 0; i < CMV.length; i++) {
@@ -55,7 +55,7 @@ public class Decide {
         }
 
         // Compute the FUV
-        boolean[] FUVector = FUV.computeFUV(PUMatrix);
+        boolean[] FUVector = FUV.computeFUV(PUV, PUMatrix);
 
         if (PRINT_FUV) {
             for (int i = 0; i < FUVector.length; i++) {
@@ -75,8 +75,6 @@ public class Decide {
     public static void main(String[] args) {
 
         // Input to the function.
-        // TODO: Move to a separate file that would be later parsed. - also to be discussed
-
         int NUMPOINTS = 5;
 
         Point[] POINTS = new Point[5];
