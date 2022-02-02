@@ -556,8 +556,7 @@ public class LIC {
         return false;
     }
 
-    public static boolean[] computeCMV(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS, int[][] LCM,
-            boolean[] PUV) {
+    public static boolean[] computeCMV(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS) {
         boolean[] CMV = { condition0(NUMPOINTS, POINTS, PARAMETERS.LENGTH1),
                 condition1(NUMPOINTS, POINTS, PARAMETERS.RADIUS1), condition2(NUMPOINTS, POINTS, PARAMETERS.EPSILON),
                 condition3(NUMPOINTS, POINTS, PARAMETERS.AREA1),
