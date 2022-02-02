@@ -20,6 +20,8 @@ It consists of implementing part of a hypothetical anti-ballistic missile system
 
 The main function we've considered here is located in `src/main/java/com/group23/decide/Decide.java` and determines which combination of the several possible Launch Interceptor Conditions (`LIC`’s) are relevant to the immediate situation. The interceptor launch button is normally considered locked; only if all relevant combinations of launch conditions are met will the launch-unlock signal be issued.
 
+See a description of the specifications of the task under `resources/decide.pdf`.
+
 <p style="text-align:right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
@@ -59,6 +61,26 @@ This is a list of things you need to use the software and how to install them us
 Just clone the repo
 ```sh
 git clone https://github.com/SEFGroup23/assignment1-decide
+```
+
+### Running
+
+In order to build & run the project, just type in:
+
+```
+make
+```
+
+To just compile the package:
+
+```
+make build
+```
+
+To run the test cases:
+
+```
+make test
 ```
 
 <p style="text-align:right">(<a href="#top">back to top</a>)</p>
