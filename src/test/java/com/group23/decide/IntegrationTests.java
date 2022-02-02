@@ -105,6 +105,96 @@ public class IntegrationTests {
     }
 
     /**
+     * Integration test #2 is suppossed to check the whole flow. This is done by manually setting input variables and
+     * running the DECIDE program and checking the final output.
+     * 
+     * This test runs the configurations in such way that the program should not LAUNCH. The test is run twice In order
+     * to manually do what the decide() function does (and thus checking the final output), but also the intermediate
+     * steps
+     *
+     * Expected output: false
+     */
+    @Test
+    public void testDecideFalse() {
+        // Input to the function.
+        int NUMPOINTS = 10;
+
+        Point[] POINTS = new Point[10];
+        POINTS[0] = new Point(0, 0);
+        POINTS[1] = new Point(23.4, -2);
+        POINTS[2] = new Point(-3, -21);
+        POINTS[3] = new Point(-8, 4.2);
+        POINTS[4] = new Point(12.2, 3.4);
+        POINTS[5] = new Point(-3.12, -4.12);
+        POINTS[6] = new Point(7.1, 2.32);
+        POINTS[7] = new Point(25, 25);
+        POINTS[8] = new Point(1.54, 4.3);
+        POINTS[9] = new Point(9.42, -7.5);
+
+        Parameters PARAMETERS = new Parameters(10, 1, 0.01, 400, 3, 2, 100, 10, 1, 2, 1, 2, 2, 1, 1, 4, 20, 15, 5);
+
+        int[][] LCM = {
+                { ANDD, ORR, ANDD, ORR, ORR, ANDD, ORR, NOTUSED, NOTUSED, NOTUSED, NOTUSED, ANDD, NOTUSED, ORR, ORR },
+                { ORR, ANDD, ORR, NOTUSED, NOTUSED, NOTUSED, ANDD, ORR, ANDD, NOTUSED, ORR, ORR, NOTUSED, ORR, ANDD },
+                { ANDD, ORR, ANDD, NOTUSED, ORR, NOTUSED, ORR, ORR, ANDD, NOTUSED, ORR, ANDD, ANDD, ORR, NOTUSED },
+                { ORR, NOTUSED, NOTUSED, ANDD, NOTUSED, ORR, NOTUSED, ORR, NOTUSED, ORR, NOTUSED, ORR, NOTUSED, NOTUSED,
+                        NOTUSED },
+                { ORR, NOTUSED, ORR, NOTUSED, ANDD, ORR, ORR, ORR, ORR, ANDD, ORR, ORR, ANDD, ORR, ORR },
+                { ANDD, NOTUSED, NOTUSED, ORR, ORR, ANDD, NOTUSED, ANDD, NOTUSED, NOTUSED, NOTUSED, ORR, NOTUSED, ORR,
+                        NOTUSED },
+                { ORR, ANDD, ORR, NOTUSED, ORR, NOTUSED, ANDD, ANDD, NOTUSED, ORR, ORR, NOTUSED, ANDD, ORR, NOTUSED },
+                { NOTUSED, ORR, ORR, ORR, ORR, ANDD, ANDD, ANDD, ANDD, ORR, ANDD, ANDD, NOTUSED, ORR, ORR },
+                { NOTUSED, ANDD, ANDD, NOTUSED, ORR, NOTUSED, NOTUSED, ANDD, ANDD, NOTUSED, ORR, ORR, ANDD, ANDD, ORR },
+                { NOTUSED, NOTUSED, NOTUSED, ORR, ANDD, NOTUSED, ORR, ORR, NOTUSED, ANDD, ANDD, ORR, NOTUSED, NOTUSED,
+                        ORR },
+                { NOTUSED, ORR, ORR, NOTUSED, ORR, NOTUSED, ORR, ANDD, ORR, ANDD, ANDD, NOTUSED, NOTUSED, ANDD, ORR },
+                { ANDD, ORR, ANDD, ORR, ORR, ORR, NOTUSED, ANDD, ORR, ORR, NOTUSED, ANDD, NOTUSED, ANDD, NOTUSED },
+                { NOTUSED, NOTUSED, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, NOTUSED, ANDD, NOTUSED, NOTUSED, NOTUSED, ANDD,
+                        NOTUSED, NOTUSED },
+                { ORR, ORR, ORR, NOTUSED, ORR, ORR, ORR, ORR, ANDD, NOTUSED, ANDD, ANDD, NOTUSED, ANDD, NOTUSED },
+                { ORR, ANDD, NOTUSED, NOTUSED, ORR, NOTUSED, NOTUSED, ORR, ORR, ORR, ORR, NOTUSED, NOTUSED, NOTUSED,
+                        ANDD }, };
+        boolean[] PUV = { true, false, true, true, true, false, true, false, false, true, true, true, false, false,
+                true };
+
+        Decide.checkData(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV);
+
+        boolean[] CMV = LIC.computeCMV(NUMPOINTS, POINTS, PARAMETERS);
+        boolean[] expectedCMV = { true, true, true, false, true, true, false, true, true, true, false, true, true, true,
+                false };
+
+        assertArrayEquals(CMV, expectedCMV);
+
+        boolean[][] PUMatrix = PUM.computePUM(CMV, LCM);
+        boolean[][] expectedPUM = {
+                { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                { true, true, true, true, true, true, false, true, true, true, true, true, true, true, false },
+                { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                { true, true, true, false, true, true, true, true, true, true, true, true, true, true, true },
+                { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                { true, false, true, true, true, true, false, false, true, true, false, true, false, true, true },
+                { true, true, true, true, true, true, false, true, true, true, false, true, true, true, true },
+                { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                { true, true, true, true, true, true, true, true, true, true, false, true, true, true, true },
+                { true, true, true, true, true, true, false, false, true, false, false, true, true, false, false },
+                { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                { true, true, true, true, true, true, false, true, true, true, true, true, true, true, true },
+                { true, true, true, true, true, true, true, true, true, true, false, true, true, true, true },
+                { true, false, true, true, true, true, true, true, true, true, false, true, true, true, false }, };
+
+        assertArrayEquals(PUMatrix, expectedPUM);
+
+        boolean[] FUVector = FUV.computeFUV(PUV, PUMatrix);
+        boolean[] expectedFUV = { true, true, true, false, true, true, false, true, true, false, false, true, true,
+                true, false };
+        assertArrayEquals(FUVector, expectedFUV);
+
+        // The LAUNCH should be false
+        assertFalse(Decide.decide(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV));
+    }
+
+    /**
      * Integration test #3 is suppossed to check the whole flow. This is done by manually setting input variables and
      * running the DECIDE program and checking the final output.
      * 
