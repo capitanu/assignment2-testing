@@ -18,7 +18,7 @@ This project assignment was implemented by Group 23 for the <a href="https://www
 
 It consists of implementing part of a hypothetical anti-ballistic missile system which should determine whether an interceptor missile should be launch based upon radar tracking information.
 
-`DECIDE()` determines which combination of the several possible Launch Interceptor Conditions (`LIC`’s) are relevant to the immediate situation. The interceptor launch button is normally considered locked; only if all relevant combinations of launch conditions are met will the launch-unlock signal be issued.
+The main function we've considered here is located in `src/main/java/com/group23/decide/Decide.java` and determines which combination of the several possible Launch Interceptor Conditions (`LIC`’s) are relevant to the immediate situation. The interceptor launch button is normally considered locked; only if all relevant combinations of launch conditions are met will the launch-unlock signal be issued.
 
 <p style="text-align:right">(<a href="#top">back to top</a>)</p>
 
@@ -38,13 +38,13 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is a list of things you need to use the software and how to install them.
+This is a list of things you need to use the software and how to install them using [HomeBrew](https://brew.sh/) (MacOS/Linux package manager).
 * Java
   ```sh
   brew install openjdk
   ```
 * JUnit
-  https://github.com/junit-team/junit4/wiki/Download-and-Install
+  https://github.com/junit-team/junit4/wiki/Download-and-Install (no brew formula)
 * Maven
   ```sh
   brew install maven
