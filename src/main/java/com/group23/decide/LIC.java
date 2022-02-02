@@ -120,7 +120,8 @@ public class LIC {
     }
 
     /**
-     * Function that computes condition 4 of the LIC.
+     * Checks if there exists at least one set of Q_PTS consecutive points that are located in more than QUADS
+     * quadrants.
      *
      * @param NUMPOINTS
      *            the number of data points
@@ -210,7 +211,9 @@ public class LIC {
     }
 
     /**
-     * Function that computes condition 6 of the LIC.
+     * Checks if there exists one point in a range of N_PTS consecutive points in the array of points that has a
+     * distance greater than DIST to the line defined by the extremities of the interval. If the endpoints are identical
+     * then it compares the normal distance to that point.
      *
      * @param NUMPOINTS
      *            the number of data points
@@ -246,7 +249,7 @@ public class LIC {
     }
 
     /**
-     * Function that computes condition 7 of the LIC.
+     * Checks if there are two points separated by K_PTS consecutive points with a distance greater than LENGTH1
      *
      * @param NUMPOINTS
      *            the number of points
